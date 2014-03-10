@@ -13,6 +13,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.mcsg.double0negative.supercraftbros.Game;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 import org.mcsg.double0negative.supercraftbros.classes.ClassType;
 
@@ -44,7 +45,9 @@ public class InventoryClassEvent implements Listener {
         if (!c.getItemMeta().hasDisplayName()) return;
         for (ClassType t : ClassType.values()) {
             if (t.localeCaps(t.toString()).equals(ChatColor.stripColor(c.getItemMeta().getDisplayName()))) {
-                GameManager.getInstance().getGamePlayer(p).setPlayerClass(p, GameManager.getInstance().classList.get(t.toString().toLowerCase()).newInstance(p));
+                Game g = GameManager.getInstance().getGamePlayer(p);
+                g.setPlayerClass(p, GameManager.getInstance().classList.get(t.toString().toLowerCase()).newInstance(p));
+                g.getPlayerClassBase(p).PlayerSpawn();
                 return;
             }
         }
