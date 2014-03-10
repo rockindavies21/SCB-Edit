@@ -102,7 +102,9 @@ public class Gameboard {
     }
     
     public void hidePlayer(OfflinePlayer p) {
-        if (board != null) board.resetScores(p);
+        if (board == null) return;
+        if (board.getScores(p) == null) return;
+        board.resetScores(p);
     }
     
     private String getPrefix(ClassType t) {
