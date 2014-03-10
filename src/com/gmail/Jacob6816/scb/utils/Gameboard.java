@@ -1,7 +1,10 @@
 package com.gmail.Jacob6816.scb.utils;
 
+import java.util.Iterator;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Scoreboard;
@@ -54,7 +57,10 @@ public class Gameboard {
             return;
         }
         for (Team t : board.getTeams()) {
-            t.getPlayers().clear();
+            Iterator<OfflinePlayer> iter = t.getPlayers().iterator();
+            while (iter.hasNext()) {
+                t.getPlayers().remove(iter.next());
+            }
         }
         if (game.getActivePlayers().size() == 0) return;
         for (Player p : game.getActivePlayers()) {
