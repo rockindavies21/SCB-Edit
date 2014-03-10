@@ -38,6 +38,14 @@ public class Gameboard {
         }
         reloadTeams();
         reloadLives();
+        loadInPlayers();
+    }
+    
+    private void loadInPlayers() {
+        if (game.getActivePlayers().size() <= 0) return;
+        for (Player p : game.getActivePlayers()) {
+            p.setScoreboard(board);
+        }
     }
     
     private void reloadTeams() {
@@ -47,7 +55,8 @@ public class Gameboard {
         }
         if (game.getActivePlayers().size() == 0) return;
         for (Player p : game.getActivePlayers()) {
-            board.getTeam(localeCaps(game.getPlayerClass(p).getType().toString())).addPlayer(p);
+            PlayerClass c = game.getPlayerClass(p);
+            if (c != null) board.getTeam(localeCaps(c.getType().toString())).addPlayer(p);
         }
     }
     
