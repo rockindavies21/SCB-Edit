@@ -87,5 +87,11 @@ public class EndermanClass extends PlayerClassBase {
         // TODO Auto-generated method stub
         return ClassType.ENDERMAN;
     }
+
+
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.LIGHT_PURPLE;
+    }
     
 }

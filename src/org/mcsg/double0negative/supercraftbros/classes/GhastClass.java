@@ -76,4 +76,10 @@ public class GhastClass extends PlayerClassBase{
         return ClassType.GHAST;
     }
 
+
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.GRAY;
+    }
+
 }

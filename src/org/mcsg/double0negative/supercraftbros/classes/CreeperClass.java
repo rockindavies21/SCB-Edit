@@ -90,5 +90,11 @@ public class CreeperClass extends PlayerClassBase{
         // TODO Auto-generated method stub
         return ClassType.CREEPER;
     }
+
+
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.GREEN;
+    }
 	
 }

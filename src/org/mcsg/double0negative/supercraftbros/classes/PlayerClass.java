@@ -1,5 +1,6 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
+import org.bukkit.ChatColor;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -36,5 +37,7 @@ public interface PlayerClass {
     public void PlayerMove();
     
     public String getName();
+    
+    public ChatColor getPrefix();
     
 }

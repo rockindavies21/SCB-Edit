@@ -117,4 +117,9 @@ public class BlazeClass extends PlayerClassBase {
         return ClassType.BLAZE;
     }
     
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.RED;
+    }
+    
 }

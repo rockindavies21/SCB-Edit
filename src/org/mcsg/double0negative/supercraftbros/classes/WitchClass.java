@@ -138,4 +138,9 @@ public class WitchClass extends PlayerClassBase {
         return ClassType.WITCH;
     }
     
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.BLUE;
+    }
+    
 }

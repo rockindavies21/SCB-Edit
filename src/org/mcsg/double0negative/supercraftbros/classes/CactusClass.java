@@ -76,4 +76,9 @@ public class CactusClass extends PlayerClassBase {
         return ClassType.CACTUS;
     }
     
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.AQUA;
+    }
+    
 }

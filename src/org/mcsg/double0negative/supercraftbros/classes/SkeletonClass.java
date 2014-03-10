@@ -62,4 +62,10 @@ public class SkeletonClass extends PlayerClassBase{
         // TODO Auto-generated method stub
         return ClassType.SKELETON;
     }
+
+
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.DARK_GRAY;
+    }
 }

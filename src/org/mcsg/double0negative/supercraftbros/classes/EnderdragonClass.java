@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Damageable;
@@ -87,5 +88,11 @@ public class EnderdragonClass extends PlayerClassBase {
         player.setItemInHand(new ItemStack(Material.DRAGON_EGG));
         player.getItemInHand().addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
         super.PlayerSpawn();
+    }
+
+
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.DARK_BLUE;
     }
 }

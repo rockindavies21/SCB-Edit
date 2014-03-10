@@ -58,5 +58,11 @@ public class ZombieClass extends PlayerClassBase{
     public ClassType getType() {
         return ClassType.ZOMBIE;
     }
+
+
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.DARK_GREEN;
+    }
 	
 }

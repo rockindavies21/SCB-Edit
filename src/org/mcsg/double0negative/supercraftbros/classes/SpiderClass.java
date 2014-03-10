@@ -73,7 +73,9 @@ public class SpiderClass extends PlayerClassBase{
         // TODO Auto-generated method stub
         return ClassType.SPIDER;
     }
-	
-	
-	
+
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.BLACK;
+    }
 }

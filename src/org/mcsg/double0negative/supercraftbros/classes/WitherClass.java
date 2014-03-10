@@ -72,5 +72,11 @@ public class WitherClass extends PlayerClassBase {
     public ClassType getType() {
         return ClassType.WITHER;
     }
+
+
+    @Override
+    public ChatColor getPrefix() {
+        return ChatColor.DARK_PURPLE;
+    }
     
 }

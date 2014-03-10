@@ -14,6 +14,7 @@ import org.mcsg.double0negative.supercraftbros.classes.PlayerClass;
 
 public class Gameboard {
     private final String lives = ChatColor.AQUA + "" + ChatColor.BOLD + "Lives" + ChatColor.RESET;
+    private final String r = ChatColor.RESET.toString();
     private Game game;
     private Scoreboard board = null;
     private PlayerClass.ClassType[] classes;
@@ -42,7 +43,7 @@ public class Gameboard {
             board.getTeam(team).setAllowFriendlyFire(true);
             board.getTeam(team).setCanSeeFriendlyInvisibles(false);
             board.getTeam(team).setSuffix(ChatColor.RESET + "");
-            board.getTeam(team).setPrefix("[" + team + "]");
+            board.getTeam(team).setPrefix("[" + team + "]" + r);
         }
         if (teams) reloadTeams();
         reloadLives();
@@ -72,7 +73,11 @@ public class Gameboard {
         if (game.getActivePlayers().size() == 0) return;
         for (Player p : game.getActivePlayers()) {
             PlayerClass c = game.getPlayerClass(p);
-            if (c != null) board.getTeam(localeCaps(c.getType().toString())).addPlayer(p);
+            if (c != null) {
+                Team t = board.getTeam(localeCaps(c.getType().toString()));
+                t.addPlayer(p);
+                t.setPrefix(game.getPlayerClass(p).getPrefix() + t.getPrefix());
+            }
         }
     }
     
