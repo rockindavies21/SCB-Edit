@@ -31,6 +31,7 @@ public class ClickSignEvent implements Listener {
             if (g != null) {
                 g.setPlayerClass(e.getPlayer(), GameManager.getInstance().classList.get(cl.toLowerCase()).newInstance(e.getPlayer()));
                 g.getPlayerClass(e.getPlayer()).PlayerSpawn();
+                if (g.getBoard() != null) g.getBoard().setup(true);
             }
         }
         else if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[join]")) {

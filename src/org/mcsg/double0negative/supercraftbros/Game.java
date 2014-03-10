@@ -19,6 +19,7 @@ import org.mcsg.double0negative.supercraftbros.classes.PlayerClass;
 import org.mcsg.double0negative.tabapi.TabAPI;
 
 import com.gmail.Jacob6816.scb.utils.Gameboard;
+
 public class Game {
     
     public enum State {
@@ -31,7 +32,7 @@ public class Game {
     private int spawnCount;
     private Arena arena;
     private State state;
-    private Gameboard b; 
+    private Gameboard b;
     private HashMap<Player, Integer> players = new HashMap<Player, Integer>();
     private HashMap<Player, PlayerClass> pClasses = new HashMap<Player, PlayerClass>();
     private ArrayList<Player> inactive = new ArrayList<Player>();
@@ -39,7 +40,7 @@ public class Game {
     
     public Game(int a) {
         this.gameID = a;
-
+        
         init();
     }
     
@@ -100,7 +101,7 @@ public class Game {
         inactive.clear();
         state = State.INGAME;
         b = new Gameboard(this);
-    	b.setup(true);
+        b.setup(true);
         for (Player p : getPlayers().keySet().toArray(new Player[0])) {
             if (pClasses.containsKey(p)) {
                 spawnPlayer(p);
@@ -423,6 +424,10 @@ public class Game {
     
     public void setPlayers(HashMap<Player, Integer> players) {
         this.players = players;
+    }
+    
+    public Gameboard getBoard() {
+        return b;
     }
     
 }

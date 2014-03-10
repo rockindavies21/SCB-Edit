@@ -135,7 +135,7 @@ public class WitchClass extends PlayerClassBase {
     
     @Override
     public ClassType getType() {
-        return ClassType.WITHER;
+        return ClassType.WITCH;
     }
     
 }
