@@ -9,7 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.event.BreakBlock;
 import org.mcsg.double0negative.supercraftbros.event.ClickSignEvent;
-import org.mcsg.double0negative.supercraftbros.event.InventoryClassEvent;
 import org.mcsg.double0negative.supercraftbros.event.InventoryEvents;
 import org.mcsg.double0negative.supercraftbros.event.PlayerClassEvents;
 import org.mcsg.double0negative.supercraftbros.event.PlayerDamage;
@@ -17,6 +16,7 @@ import org.mcsg.double0negative.supercraftbros.event.PlayerJoin;
 import org.mcsg.double0negative.supercraftbros.event.PlayerLeave;
 import org.mcsg.double0negative.supercraftbros.event.PlayerTeleport;
 
+import com.gmail.Jacob6816.scb.utils.InventoryClassEvent;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
 import java.io.IOException;

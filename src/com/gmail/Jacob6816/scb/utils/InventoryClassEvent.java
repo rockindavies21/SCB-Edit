@@ -1,4 +1,4 @@
-package org.mcsg.double0negative.supercraftbros.event;
+package com.gmail.Jacob6816.scb.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,6 +18,7 @@ import org.mcsg.double0negative.supercraftbros.classes.ClassType;
 
 public class InventoryClassEvent implements Listener {
     private Inventory inv;
+    
     public InventoryClassEvent() {
         int size = ClassType.values().length;
         while (size % 9 != 0)
@@ -43,7 +44,7 @@ public class InventoryClassEvent implements Listener {
         if (!c.getItemMeta().hasDisplayName()) return;
         for (ClassType t : ClassType.values()) {
             if (t.localeCaps(t.toString()).equals(ChatColor.stripColor(c.getItemMeta().getDisplayName()))) {
-                GameManager.getInstance().getGamePlayer(p).setPlayerClass(p, GameManager.getInstance().classList.get(t.toString().toLowerCase()));
+                GameManager.getInstance().getGamePlayer(p).setPlayerClass(p, GameManager.getInstance().classList.get(t.toString().toLowerCase()).newInstance(p));
                 return;
             }
         }
