@@ -42,7 +42,7 @@ public class Gameboard {
             board.getTeam(team).setAllowFriendlyFire(true);
             board.getTeam(team).setCanSeeFriendlyInvisibles(false);
             board.getTeam(team).setSuffix(ChatColor.RESET + "");
-            board.getTeam(team).setPrefix(ChatColor.WHITE + "[" + team + "]" + ChatColor.RESET);
+            board.getTeam(team).setPrefix("[" + team + "]");
         }
         if (teams) reloadTeams();
         reloadLives();
