@@ -10,13 +10,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.classes.PlayerClass;
-import org.mcsg.double0negative.tabapi.TabAPI;
 
 import com.gmail.Jacob6816.scb.utils.Gameboard;
 
@@ -76,10 +74,8 @@ public class Game {
             p.setHealth(20D);
             p.setFoodLevel(20);
             
-            TabAPI.setPriority(GameManager.getInstance().getPlugin(), p, 2);
             p.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "Joined arena " + gameID + ". Select a class! \nHit tab for HUD!");
             msgAll(ChatColor.GREEN + p.getName() + " joined the game!");
-            updateTabAll();
         }
         else if (state == State.INGAME) {
             p.sendMessage(ChatColor.RED + "Game already started!");
@@ -151,7 +147,6 @@ public class Game {
             player.sendMessage(ChatColor.GREEN + "You choose " + playerClass.getName() + "!");
             // int prev = pClasses.keySet().size();
             pClasses.put(player, playerClass);
-            updateTabAll();
             if (!started && pClasses.keySet().size() >= 4 && getPlayers().size() >= 4) {
                 countdown(60);
                 started = true;
@@ -194,7 +189,8 @@ public class Game {
         clearPotions(p);
         p.teleport(SettingsManager.getInstance().getLobbySpawn());
         p.setDisplayName(p.getName());
-        
+        b.hidePlayer(p);
+        b.setup(true);
         if (getPlayers().keySet().size() <= 1 && state == State.INGAME) {
             Player pl = null;
             for (Player pl2 : getPlayers().keySet()) {
@@ -203,10 +199,7 @@ public class Game {
             Bukkit.broadcastMessage(ChatColor.BLUE + pl.getName() + " won Super Craft Bros on arena " + gameID);
             gameEnd();
         }
-        TabAPI.setPriority(GameManager.getInstance().getPlugin(), p, -1);
-        TabAPI.updatePlayer(p);
         p.setDisplayName(p.getName());
-        updateTabAll();
         
     }
     
@@ -229,8 +222,6 @@ public class Game {
             p.teleport(SettingsManager.getInstance().getLobbySpawn());
             p.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
             clearPotions(p);
-            TabAPI.setPriority(GameManager.getInstance().getPlugin(), p, -2);
-            TabAPI.updatePlayer(p);
             p.setFlying(false);
             p.setAllowFlight(false);
             p.setDisplayName(p.getName());
@@ -242,74 +233,11 @@ public class Game {
         
     }
     
-    public void updateTabAll() {
-        for (Player p : getPlayers().keySet()) {
-            updateTab(p);
-        }
-    }
-    
-    public void updateTab(Player p) {
-        Plugin plugin = GameManager.getInstance().getPlugin();
-        TabAPI.setTabString(plugin, p, 0, 0, "        \u00a7lSuper");
-        TabAPI.setTabString(plugin, p, 0, 1, "   \u00a7lCraft");
-        TabAPI.setTabString(plugin, p, 0, 2, "  \u00a7lBros");
-        TabAPI.setTabString(plugin, p, 1, 1, "   \u00a7lBrawl");
-        TabAPI.setTabString(plugin, p, 2, 0, " \u00a76\u00a7l----------");
-        TabAPI.setTabString(plugin, p, 2, 1, "\u00a7e\u00a7l----------");
-        TabAPI.setTabString(plugin, p, 2, 2, "\u00a76\u00a7l---------- ");
-        
-        TabAPI.setTabString(plugin, p, 4, 0, "\u00a7lArena");
-        TabAPI.setTabString(plugin, p, 4, 1, gameID + TabAPI.nextNull());
-        TabAPI.setTabString(plugin, p, 5, 0, "\u00a7lClass");
-        TabAPI.setTabString(plugin, p, 5, 1, (getPlayerClass(p) != null) ? getPlayerClass(p).getName() + TabAPI.nextNull() : "None " + TabAPI.nextNull());
-        
-        TabAPI.setTabString(plugin, p, 7, 0, "\u00a7e\u00a7lPlayer");
-        TabAPI.setTabString(plugin, p, 7, 1, "\u00a7e\u00a7lLives");
-        TabAPI.setTabString(plugin, p, 7, 2, "\u00a7e\u00a7lClass");
-        
-        int a = 8;
-        for (Player pl : getPlayers().keySet()) {
-            int h = convertHealth(((Damageable) pl).getHealth());
-            TabAPI.setTabString(plugin, p, a, 0, pl.getName(), h);
-            TabAPI.setTabString(plugin, p, a, 1, "\u00a7a" + getPlayers().get(pl) + TabAPI.nextNull(), h);
-            TabAPI.setTabString(plugin, p, a, 2, (getPlayerClass(pl) != null) ? getPlayerClass(pl).getName() + TabAPI.nextNull() : "None " + TabAPI.nextNull(), h);
-            a++;
-        }
-        
-        if (state == State.INGAME) {
-            for (Player pl : inactive) {
-                TabAPI.setTabString(plugin, p, a, 0, pl.getName(), -1);
-                TabAPI.setTabString(plugin, p, a, 1, "\u00a7c0" + TabAPI.nextNull(), -1);
-                TabAPI.setTabString(plugin, p, a, 2, (getPlayerClass(pl) != null) ? getPlayerClass(pl).getName() + TabAPI.nextNull() : "None " + TabAPI.nextNull(), -1);
-                
-                a++;
-            }
-        }
-        TabAPI.updatePlayer(p);
-        
-    }
-    
-    private int convertHealth(double h) {
-        if (h > 17) {
-            return 1;
-        }
-        else if (h > 14) {
-            return 151;
-        }
-        else if (h > 10) {
-            return 301;
-        }
-        else if (h > 5) {
-            return 601;
-        }
-        else if (h > 2) {
-            return 1001;
-        }
-        else {
-            return -1;
-        }
-        
-    }
+    /*
+     * private int convertHealth(double h) { if (h > 17) { return 1; } else if
+     * (h > 14) { return 151; } else if (h > 10) { return 301; } else if (h > 5)
+     * { return 601; } else if (h > 2) { return 1001; } else { return -1; } }
+     */
     
     public void spawnPlayer(Player p) {
         if (getPlayers().containsKey(p)) {

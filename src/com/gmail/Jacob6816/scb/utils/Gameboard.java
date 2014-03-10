@@ -96,4 +96,7 @@ public class Gameboard {
         
     }
     
+    public void hidePlayer(OfflinePlayer p) {
+        board.resetScores(p);
+    }
 }
