@@ -11,7 +11,6 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.mcsg.double0negative.supercraftbros.Game;
 import org.mcsg.double0negative.supercraftbros.classes.PlayerClass;
-import org.mcsg.double0negative.supercraftbros.classes.PlayerClass.ClassType;
 
 public class Gameboard {
     private final String lives = ChatColor.AQUA + "" + ChatColor.BOLD + "Lives" + ChatColor.RESET;
@@ -39,7 +38,6 @@ public class Gameboard {
         board.getObjective(ChatColor.stripColor(lives)).setDisplaySlot(DisplaySlot.SIDEBAR);
         for (PlayerClass.ClassType t : classes) {
             String team = localeCaps(t.toString());
-            System.out.println(team);
             if (board.getTeam(team) == null) board.registerNewTeam(team);
             board.getTeam(team).setAllowFriendlyFire(true);
             board.getTeam(team).setCanSeeFriendlyInvisibles(false);
@@ -74,7 +72,7 @@ public class Gameboard {
         if (game.getActivePlayers().size() == 0) return;
         for (Player p : game.getActivePlayers()) {
             PlayerClass c = game.getPlayerClass(p);
-            if (c != null && c.getType() != ClassType.UNKNOWN) board.getTeam(localeCaps(c.getType().toString())).addPlayer(p);
+            if (c != null) board.getTeam(localeCaps(c.getName())).addPlayer(p);
         }
     }
     

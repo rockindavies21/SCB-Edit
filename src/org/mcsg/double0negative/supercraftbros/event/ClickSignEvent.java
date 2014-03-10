@@ -14,50 +14,52 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.mcsg.double0negative.supercraftbros.Game;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 
-public class ClickSignEvent implements Listener{
-
+public class ClickSignEvent implements Listener {
+    
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void clickHandler(PlayerInteractEvent e){
-
-        if(!(e.getAction()==Action.RIGHT_CLICK_BLOCK || e.getAction()==Action.LEFT_CLICK_BLOCK)) return;
+    public void clickHandler(PlayerInteractEvent e) {
         
-
-        Block clickedBlock = e.getClickedBlock(); 
-        if(!(clickedBlock.getType()==Material.SIGN || clickedBlock.getType()==Material.SIGN_POST || clickedBlock.getType()==Material.WALL_SIGN)) return;
+        if (!(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)) return;
+        
+        Block clickedBlock = e.getClickedBlock();
+        if (!(clickedBlock.getType() == Material.SIGN || clickedBlock.getType() == Material.SIGN_POST || clickedBlock.getType() == Material.WALL_SIGN)) return;
         Sign thisSign = (Sign) clickedBlock.getState();
         String[] lines = thisSign.getLines();
-        if(ChatColor.stripColor(lines[0]).equalsIgnoreCase("[class]")){
-        	String cl = lines[1];
-        	Game g = GameManager.getInstance().getGame(GameManager.getInstance().getPlayerGameId(e.getPlayer()));
-        	g.setPlayerClass(e.getPlayer(), GameManager.getInstance().classList.get(cl.toLowerCase()).newInstance(e.getPlayer()));
-        	g.getPlayerClass(e.getPlayer()).PlayerSpawn();
+        if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[class]")) {
+            String cl = lines[1];
+            Game g = GameManager.getInstance().getGame(GameManager.getInstance().getPlayerGameId(e.getPlayer()));
+            if (g != null) {
+                g.setPlayerClass(e.getPlayer(), GameManager.getInstance().classList.get(cl.toLowerCase()).newInstance(e.getPlayer()));
+                g.getPlayerClass(e.getPlayer()).PlayerSpawn();
+            }
         }
-        else if(ChatColor.stripColor(lines[0]).equalsIgnoreCase("[join]")){
-        	int game = Integer.parseInt(lines[1]);
-        	Game g = GameManager.getInstance().getGame(game);
-        	g.addPlayer(e.getPlayer());
+        else if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[join]")) {
+            int game = Integer.parseInt(lines[1]);
+            Game g = GameManager.getInstance().getGame(game);
+            g.addPlayer(e.getPlayer());
         }
-        else if(ChatColor.stripColor(lines[0]).equalsIgnoreCase("[leave]")){
-        	Player p = e.getPlayer();
-        	p.performCommand("scb leave");       	
+        else if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[leave]")) {
+            Player p = e.getPlayer();
+            p.performCommand("scb leave");
         }
-	}
+    }
+    
     @EventHandler
     public void onSignChange(SignChangeEvent e) {
-            if (e.getLine(0).equalsIgnoreCase("[join]")) {
-                    e.setLine(0, "§3[Join]");
-                    e.setLine(2, "§eClick to join");
-                    e.setLine(3, "§eSCB");
-            }
-            else if (e.getLine(0).equalsIgnoreCase("[class]")) {
-            		e.setLine(0, "§2[Class]");
-            		e.setLine(2, "§bClick to pick");
-            		e.setLine(3, "§bA class");
-            }
-            else if (e.getLine(0).equalsIgnoreCase("[leave]")) {
-        		e.setLine(0, "§2[Leave]");
-        		e.setLine(2, "§bClick to");
-        		e.setLine(3, "§bleave");
-            }
-}
+        if (e.getLine(0).equalsIgnoreCase("[join]")) {
+            e.setLine(0, "§3[Join]");
+            e.setLine(2, "§eClick to join");
+            e.setLine(3, "§eSCB");
+        }
+        else if (e.getLine(0).equalsIgnoreCase("[class]")) {
+            e.setLine(0, "§2[Class]");
+            e.setLine(2, "§bClick to pick");
+            e.setLine(3, "§bA class");
+        }
+        else if (e.getLine(0).equalsIgnoreCase("[leave]")) {
+            e.setLine(0, "§2[Leave]");
+            e.setLine(2, "§bClick to");
+            e.setLine(3, "§bleave");
+        }
+    }
 }
