@@ -4,15 +4,17 @@ import java.util.Date;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 
 public class EnderdragonClass extends PlayerClassBase {
     
     public EnderdragonClass(Player p) {
         super(p);
-        // TODO Auto-generated constructor stub
     }
     
     int fly = 0;
@@ -80,4 +82,10 @@ public class EnderdragonClass extends PlayerClassBase {
         return ClassType.ENDERDRAGON;
     }
     
+    @Override
+    public void PlayerSpawn() {
+        player.setItemInHand(new ItemStack(Material.DRAGON_EGG));
+        player.getItemInHand().addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
+        super.PlayerSpawn();
+    }
 }

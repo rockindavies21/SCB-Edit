@@ -169,7 +169,7 @@ public class Game {
         int lives = getPlayers().get(p) - 1;
         if (lives <= 0) {
             playerEliminate(p);
-            
+            b.setup(true);
         }
         else {
             getPlayers().put(p, lives);

@@ -80,7 +80,9 @@ public class Gameboard {
         if (game.getActivePlayers().size() >= 1) {
             for (Player p : game.getActivePlayers()) {
                 board.resetScores(p);
-                board.getObjective(DisplaySlot.SIDEBAR).getScore(p).setScore(game.getPlayers().get(p));
+                int i = game.getPlayers().get(p);
+                board.getObjective(DisplaySlot.SIDEBAR).getScore(p).setScore(i);
+                if (i <= 0) board.resetScores(p);
             }
         }
     }
