@@ -26,8 +26,6 @@ public class Game {
         INGAME, LOBBY, DISABLED, WAITING
     }
     
-    // 2lolololol
-    
     private int gameID;
     private int spawnCount;
     private Arena arena;
@@ -49,16 +47,11 @@ public class Game {
         int x = s.getInt("system.arenas." + gameID + ".x1");
         int y = s.getInt("system.arenas." + gameID + ".y1");
         int z = s.getInt("system.arenas." + gameID + ".z1");
-        System.out.println(x + " " + y + " " + z);
         int x1 = s.getInt("system.arenas." + gameID + ".x2");
         int y1 = s.getInt("system.arenas." + gameID + ".y2");
         int z1 = s.getInt("system.arenas." + gameID + ".z2");
-        System.out.println(x1 + " " + y1 + " " + z1);
         Location max = new Location(SettingsManager.getGameWorld(gameID), Math.max(x, x1), Math.max(y, y1), Math.max(z, z1));
-        System.out.println(max.toString());
         Location min = new Location(SettingsManager.getGameWorld(gameID), Math.min(x, x1), Math.min(y, y1), Math.min(z, z1));
-        System.out.println(min.toString());
-        
         arena = new Arena(min, max);
         
         state = State.LOBBY;
@@ -148,7 +141,6 @@ public class Game {
         if (player.hasPermission("scb.class." + playerClass.getName())) {
             clearPotions(player);
             player.sendMessage(ChatColor.GREEN + "You choose " + playerClass.getName() + "!");
-            // int prev = pClasses.keySet().size();
             pClasses.put(player, playerClass);
             if (!started && pClasses.keySet().size() >= 4 && getPlayers().size() >= 4) {
                 countdown(60);
@@ -182,7 +174,6 @@ public class Game {
         msgAll(ChatColor.DARK_RED + p.getName() + " has been eliminated!");
         p.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
         getPlayers().remove(p);
-        // pClasses.remove(p);
         inactive.add(p);
         p.getInventory().clear();
         p.getInventory().setArmorContents(new ItemStack[4]);
@@ -269,7 +260,7 @@ public class Game {
                 }
             }
         }
-        return l; // nothing safe at this point
+        return l;
     }
     
     @SuppressWarnings("deprecation")

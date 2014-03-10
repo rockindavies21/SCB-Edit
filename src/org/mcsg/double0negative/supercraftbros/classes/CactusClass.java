@@ -22,11 +22,10 @@ public class CactusClass extends PlayerClassBase {
     
     public CactusClass(Player p) {
         super(p);
-        // TODO Auto-generated constructor stub
+        
     }
     
     @SuppressWarnings("deprecation")
-    @Override
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 2));
         
@@ -61,7 +60,6 @@ public class CactusClass extends PlayerClassBase {
         return new CactusClass(p);
     }
     
-    @Override
     public void PlayerDamaged() {
         if (player.isSneaking()) {
             Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable() {
@@ -76,49 +74,35 @@ public class CactusClass extends PlayerClassBase {
         return "Cactus";
     }
     
-    @Override
     public ClassType getType() {
         return ClassType.CACTUS;
     }
     
-    @Override
     public ChatColor getPrefix() {
         return ChatColor.AQUA;
     }
     
-    @Override
     public void PlayerInteract(Action action) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerAttack(Player victim) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerDeath() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerShootArrow(Entity projectile) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void Smash() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerPlaceBlock(Block block) {
-        // TODO Auto-generated method stub
         
     }
     

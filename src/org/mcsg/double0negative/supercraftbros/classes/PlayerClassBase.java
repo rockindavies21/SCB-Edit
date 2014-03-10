@@ -4,7 +4,6 @@ import net.minecraft.server.v1_7_R1.Packet;
 import net.minecraft.server.v1_7_R1.PacketPlayOutWorldEvent;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
@@ -28,11 +27,9 @@ public abstract class PlayerClassBase {
     
     public abstract PlayerClassBase newInstance(Player p);
     
-    public abstract ClassType getType();
-    
     public abstract String getName();
     
-    public abstract ChatColor getPrefix();
+    public abstract ClassType getType();
     
     public void PlayerMove() {
         if (player.isFlying()) {

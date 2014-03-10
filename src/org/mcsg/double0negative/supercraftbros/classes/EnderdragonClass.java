@@ -83,12 +83,10 @@ public class EnderdragonClass extends PlayerClassBase {
         
     }
     
-    @Override
     public ClassType getType() {
         return ClassType.ENDERDRAGON;
     }
     
-    @Override
     public void PlayerSpawn() {
         player.getInventory().setContents(new ItemStack[] {});
         player.getInventory().setArmorContents(new ItemStack[] { null, null, new ItemStack(Material.LEATHER_CHESTPLATE), null });
@@ -98,28 +96,21 @@ public class EnderdragonClass extends PlayerClassBase {
         player.setHealth(((Damageable) player).getMaxHealth());
     }
     
-    @Override
     public ChatColor getPrefix() {
         return ChatColor.DARK_BLUE;
     }
     
-    @Override
     public void PlayerDamaged() {}
     
-    @Override
     public void PlayerInteract(Action action) {}
     
-    @Override
     public void PlayerAttack(Player victim) {}
     
-    @Override
     public void PlayerDeath() {}
     
-    @Override
     public void PlayerShootArrow(Entity projectile) {}
     
     @SuppressWarnings("deprecation")
-    @Override
     public void PlayerPlaceBlock(Block block) {
         for (BlockFace b : BlockFace.values()) {
             block.getRelative(b).setTypeIdAndData(block.getTypeId(), block.getData(), false);

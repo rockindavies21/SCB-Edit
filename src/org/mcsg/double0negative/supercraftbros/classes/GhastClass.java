@@ -20,11 +20,10 @@ public class GhastClass extends PlayerClassBase {
     
     public GhastClass(Player p) {
         super(p);
-        // TODO Auto-generated constructor stub
+        
     }
     
     @SuppressWarnings("deprecation")
-    @Override
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 88000, 4));
         
@@ -64,7 +63,6 @@ public class GhastClass extends PlayerClassBase {
         }
     }
     
-    @Override
     public GhastClass newInstance(Player p) {
         return new GhastClass(p);
     }
@@ -73,50 +71,36 @@ public class GhastClass extends PlayerClassBase {
         return "Ghast";
     }
     
-    @Override
     public ClassType getType() {
-        // TODO Auto-generated method stub
+        
         return ClassType.GHAST;
     }
     
-    @Override
     public ChatColor getPrefix() {
         return ChatColor.GRAY;
     }
     
-    @Override
     public void PlayerDamaged() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerAttack(Player victim) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerDeath() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerShootArrow(Entity projectile) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void Smash() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerPlaceBlock(Block block) {
-        // TODO Auto-generated method stub
         
     }
     
