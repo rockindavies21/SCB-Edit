@@ -189,8 +189,10 @@ public class Game {
         clearPotions(p);
         p.teleport(SettingsManager.getInstance().getLobbySpawn());
         p.setDisplayName(p.getName());
-        if (state == State.INGAME) b.hidePlayer(p);
-        if (state == State.INGAME) b.setup(true);
+        if (started) {
+            b.hidePlayer(p);
+            b.setup(true);
+        }
         if (getPlayers().keySet().size() <= 1 && state == State.INGAME) {
             Player pl = null;
             for (Player pl2 : getPlayers().keySet()) {
