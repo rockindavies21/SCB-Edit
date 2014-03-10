@@ -7,12 +7,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.enchantments.Enchantment;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 
 public class EnderdragonClass extends PlayerClassBase {
@@ -82,15 +84,15 @@ public class EnderdragonClass extends PlayerClassBase {
     
     @Override
     public ClassType getType() {
-        // TODO Auto-generated method stub
         return ClassType.ENDERDRAGON;
     }
     
     @Override
     public void PlayerSpawn() {
-        player.setItemInHand(new ItemStack(Material.DRAGON_EGG));
-        player.getItemInHand().addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
-        
+        player.getInventory().setContents(new ItemStack[] {});
+        player.getInventory().setArmorContents(new ItemStack[] {});
+        player.getInventory().setItem(0, new ItemStack(Material.ARROW));
+        player.getInventory().setItem(0, new ItemStack(Material.SULPHUR));
     }
     
     @Override
@@ -100,37 +102,30 @@ public class EnderdragonClass extends PlayerClassBase {
     
     @Override
     public void PlayerDamaged() {
-        // TODO Auto-generated method stub
-        
+        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5, 0), true);
     }
     
     @Override
     public void PlayerInteract(Action action) {
-        // TODO Auto-generated method stub
-        
     }
     
     @Override
     public void PlayerAttack(Player victim) {
-        // TODO Auto-generated method stub
-        
     }
     
     @Override
     public void PlayerDeath() {
-        // TODO Auto-generated method stub
-        
     }
     
     @Override
     public void PlayerShootArrow(Entity projectile) {
-        // TODO Auto-generated method stub
-        
     }
     
+    @SuppressWarnings("deprecation")
     @Override
     public void PlayerPlaceBlock(Block block) {
-        // TODO Auto-generated method stub
-        
+        for(BlockFace b : BlockFace.values()) {
+            block.getRelative(b).setTypeIdAndData(block.getTypeId(), block.getData(), false);
+        }
     }
 }
