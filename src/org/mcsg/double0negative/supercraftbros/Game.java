@@ -103,7 +103,7 @@ public class Game {
                 spawnPlayer(p);
             }
             else {
-                removePlayer(p, false);
+                removePlayer(p);
                 p.sendMessage(ChatColor.RED + "You didn't pick a class!");
             }
             
@@ -300,7 +300,7 @@ public class Game {
     }
     
     @SuppressWarnings("deprecation")
-    public void removePlayer(Player p, boolean b) {
+    public void removePlayer(Player p) {
         getPlayers().remove(p);
         p.getInventory().clear();
         p.updateInventory();
