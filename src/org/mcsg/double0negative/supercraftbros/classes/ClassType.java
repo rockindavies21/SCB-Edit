@@ -30,7 +30,7 @@ public enum ClassType {
     private ItemStack createStack(ClassType c, Material m, int b) {
         ItemStack item = new ItemStack(m, 1, (short) b);
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(ChatColor.YELLOW + "Class: " + localeCaps(c.toString()));
+        meta.setDisplayName(ChatColor.YELLOW + localeCaps(c.toString()));
         meta.setLore(Arrays.asList(ChatColor.YELLOW + "Click here to choose the " + c.getColor() + localeCaps(c.toString()) + ChatColor.YELLOW + " class."));
         item.setItemMeta(meta);
         return item;
