@@ -32,7 +32,7 @@ public class Gameboard {
         if (board.getObjective("health") == null) {
             board.registerNewObjective("health", "health");
             board.clearSlot(DisplaySlot.BELOW_NAME);
-            board.getObjective("health").setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "♥");
+            board.getObjective("health").setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "\u2665");
             board.getObjective("health").setDisplaySlot(DisplaySlot.BELOW_NAME);
         }
         board.getObjective(ChatColor.stripColor(lives)).setDisplayName(lives);
