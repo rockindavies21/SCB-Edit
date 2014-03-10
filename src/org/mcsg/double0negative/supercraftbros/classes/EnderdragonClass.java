@@ -94,7 +94,8 @@ public class EnderdragonClass extends PlayerClassBase {
         player.getInventory().setArmorContents(new ItemStack[] { null, null, new ItemStack(Material.LEATHER_CHESTPLATE), null });
         player.getInventory().setItem(0, new ItemStack(Material.STONE_SWORD));
         player.getInventory().getItem(0).addEnchantment(Enchantment.DAMAGE_ALL, 3);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, 2), true);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, 4), true);
+        player.setHealth(((Damageable) player).getMaxHealth());
     }
     
     @Override
