@@ -2,6 +2,7 @@ package org.mcsg.double0negative.supercraftbros.classes;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -12,6 +13,8 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
+
+import com.gmail.Jacob6816.scb.utils.HeadCreator;
 
 public class SkeletonClass extends PlayerClassBase{
 
@@ -29,7 +32,7 @@ public class SkeletonClass extends PlayerClassBase{
 		PlayerInventory i = player.getInventory();
 		i.clear();
 		
-		i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 250, 250, 250));
+		i.setHelmet(new HeadCreator().getMobhead(SkullType.SKELETON, ChatColor.GRAY + "Skeleton Head"));
 		i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 250, 250, 250));
 		
 		ItemStack legs = Colorizer.setColor(new ItemStack(Material.LEATHER_LEGGINGS), 250, 250, 250);

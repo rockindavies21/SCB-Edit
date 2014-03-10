@@ -24,7 +24,7 @@ public class InventoryClassEvent implements Listener {
         int size = ClassType.values().length;
         while (size % 9 != 0)
             size++;
-        inv = Bukkit.createInventory(null, size, "Scb Classes!");
+        inv = Bukkit.createInventory(null, size, ChatColor.DARK_BLUE + "" + ChatColor.BOLD + "         Scb Classes!");
         for (ClassType c : ClassType.values()) {
             inv.addItem(c.getItemStack());
         }

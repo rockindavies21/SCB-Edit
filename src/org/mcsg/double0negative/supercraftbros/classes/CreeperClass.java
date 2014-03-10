@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.SkullType;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -16,6 +17,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
+
+import com.gmail.Jacob6816.scb.utils.HeadCreator;
 
 public class CreeperClass extends PlayerClassBase {
     
@@ -51,7 +54,8 @@ public class CreeperClass extends PlayerClassBase {
         PlayerInventory i = player.getInventory();
         i.clear();
         
-        i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 0, 200, 0));
+        i.setHelmet(new HeadCreator().getMobhead(SkullType.CREEPER, ChatColor.DARK_GREEN + "Creeper Head"));
+        
         i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 0, 200, 0));
         
         ItemStack legs = Colorizer.setColor(new ItemStack(Material.LEATHER_LEGGINGS), 0, 200, 0);

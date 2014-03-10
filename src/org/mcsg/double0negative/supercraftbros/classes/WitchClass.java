@@ -22,6 +22,8 @@ import org.mcsg.double0negative.supercraftbros.Game;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
+import com.gmail.Jacob6816.scb.utils.HeadCreator;
+
 public class WitchClass extends PlayerClassBase {
     
     int sugar = 0;
@@ -39,7 +41,7 @@ public class WitchClass extends PlayerClassBase {
         PlayerInventory i = player.getInventory();
         i.clear();
         
-        i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 148, 52, 169));
+        i.setHelmet(new HeadCreator().getPlayerhead("scrafbrothers4", getType().getColor() + "Witch Head"));
         i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 148, 52, 169));
         
         ItemStack legs = Colorizer.setColor(new ItemStack(Material.LEATHER_LEGGINGS), 148, 52, 169);

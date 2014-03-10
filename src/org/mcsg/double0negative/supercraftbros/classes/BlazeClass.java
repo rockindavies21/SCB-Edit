@@ -21,6 +21,8 @@ import org.bukkit.util.Vector;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
+import com.gmail.Jacob6816.scb.utils.HeadCreator;
+
 public class BlazeClass extends PlayerClassBase {
     
     public BlazeClass(Player p) {
@@ -36,7 +38,7 @@ public class BlazeClass extends PlayerClassBase {
         PlayerInventory i = player.getInventory();
         i.clear();
         
-        i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 255, 144, 0));
+        i.setHelmet(new HeadCreator().getPlayerhead("MHF_Blaze", ChatColor.GOLD + "Blaze Head"));
         i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 255, 144, 0));
         
         ItemStack legs = Colorizer.setColor(new ItemStack(Material.LEATHER_LEGGINGS), 255, 144, 0);

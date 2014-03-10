@@ -16,6 +16,8 @@ import org.bukkit.util.Vector;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
+import com.gmail.Jacob6816.scb.utils.HeadCreator;
+
 public class CactusClass extends PlayerClassBase {
     
     public CactusClass(Player p) {
@@ -31,8 +33,7 @@ public class CactusClass extends PlayerClassBase {
         PlayerInventory i = player.getInventory();
         i.clear();
         
-        i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 50, 150, 50));
-        
+        i.setHelmet(new HeadCreator().getPlayerhead("MHF_Cactus", ChatColor.GREEN + "Cactus Head"));
         ItemStack chest = Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 50, 150, 50);
         chest.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 1);
         chest.addUnsafeEnchantment(Enchantment.THORNS, 4);
@@ -50,7 +51,7 @@ public class CactusClass extends PlayerClassBase {
         i1.addUnsafeEnchantment(Enchantment.KNOCKBACK, 1);
         i1.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
         i.addItem(i1);
-        player.setDisplayName(ChatColor.GRAY + "[Cactus]" + ChatColor.WHITE + player.getName());
+        player.setDisplayName(ChatColor.GREEN + "[Cactus]" + ChatColor.WHITE + player.getName());
         
         player.updateInventory();
         

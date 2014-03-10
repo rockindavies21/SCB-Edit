@@ -16,6 +16,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
+import com.gmail.Jacob6816.scb.utils.HeadCreator;
+
 public class EndermanClass extends PlayerClassBase {
     
     public EndermanClass(Player p) {
@@ -31,7 +33,7 @@ public class EndermanClass extends PlayerClassBase {
         PlayerInventory i = player.getInventory();
         i.clear();
         
-        i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 37, 6, 39));
+        i.setHelmet(new HeadCreator().getPlayerhead("MHF_Enderman", ChatColor.DARK_PURPLE + "Enderman Head"));
         i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 37, 6, 39));
         
         ItemStack legs = Colorizer.setColor(new ItemStack(Material.LEATHER_LEGGINGS), 37, 6, 39);

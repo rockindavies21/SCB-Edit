@@ -14,6 +14,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
+import com.gmail.Jacob6816.scb.utils.HeadCreator;
+
 public class GhastClass extends PlayerClassBase {
     
     public GhastClass(Player p) {
@@ -29,7 +31,7 @@ public class GhastClass extends PlayerClassBase {
         PlayerInventory i = player.getInventory();
         i.clear();
         
-        i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 250, 0, 0));
+        i.setHelmet(new HeadCreator().getPlayerhead("MHF_Ghast", ChatColor.DARK_GRAY + "Ghast Head"));
         
         ItemStack chest = Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 250, 250, 250);
         chest.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, 10);

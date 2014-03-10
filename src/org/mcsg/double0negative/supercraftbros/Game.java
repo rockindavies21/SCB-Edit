@@ -7,8 +7,10 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -72,10 +74,11 @@ public class Game {
             getPlayers().put(p, 3);
             p.setGameMode(GameMode.SURVIVAL);
             p.setHealth(20D);
-            p.setFoodLevel(20);
-            
-            p.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "Joined arena " + gameID + ". Select a class! \nHit tab for HUD!");
-            msgAll(ChatColor.GREEN + p.getName() + " joined the game!");
+            p.setFoodLevel(20);            
+            p.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "Joined arena " + gameID + ". Select a class! \nHave fun!");
+            msgAll(ChatColor.GREEN + p.getName() + " joined the game!" + ChatColor.AQUA + " [+]");
+            p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
+            p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 1);
         }
         else if (state == State.INGAME) {
             p.sendMessage(ChatColor.RED + "Game already started!");
@@ -202,6 +205,7 @@ public class Game {
             gameEnd();
         }
         p.setDisplayName(p.getName());
+        p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
         
     }
     
@@ -227,6 +231,7 @@ public class Game {
             p.setFlying(false);
             p.setAllowFlight(false);
             p.setDisplayName(p.getName());
+            p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
         }
         getPlayers().clear();
         pClasses.clear();

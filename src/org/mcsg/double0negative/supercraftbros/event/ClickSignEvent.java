@@ -62,5 +62,10 @@ public class ClickSignEvent implements Listener {
             e.setLine(2, "§bClick to");
             e.setLine(3, "§bleave");
         }
+        else if (e.getLine(0).equalsIgnoreCase("[open]")) {
+            e.setLine(0, "§1[Open]");
+            e.setLine(2, "§aChoose a");
+            e.setLine(3, "§bClasss!");
+        }
     }
 }

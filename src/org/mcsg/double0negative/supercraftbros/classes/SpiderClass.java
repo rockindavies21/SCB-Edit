@@ -15,6 +15,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
+import com.gmail.Jacob6816.scb.utils.HeadCreator;
+
 public class SpiderClass extends PlayerClassBase {
     
     public SpiderClass(Player p) {
@@ -38,7 +40,7 @@ public class SpiderClass extends PlayerClassBase {
         PlayerInventory i = player.getInventory();
         i.clear();
         
-        i.setHelmet(Colorizer.setColor(new ItemStack(Material.LEATHER_HELMET), 75, 8, 15));
+        i.setHelmet(new HeadCreator().getPlayerhead("MHF_Spider", getType().getColor() + "Spider Head"));
         i.setChestplate(Colorizer.setColor(new ItemStack(Material.LEATHER_CHESTPLATE), 0, 0, 0));
         
         ItemStack legs = Colorizer.setColor(new ItemStack(Material.LEATHER_LEGGINGS), 0, 0, 0);
