@@ -14,9 +14,7 @@ public class InventoryEvents implements Listener {
 		int game = GameManager.getInstance().getPlayerGameId(e.getPlayer());
     	if(game != -1){
     		e.setCancelled(true);
-    		
     	}
-    	
 	}
 	
 	@EventHandler
@@ -25,7 +23,5 @@ public class InventoryEvents implements Listener {
     	if(game != -1){
     		e.setCancelled(true);
     	}
-    	
 	}
-
 }

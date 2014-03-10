@@ -30,6 +30,7 @@ public class WitchClass extends PlayerClassBase {
         super(p);
     }
     
+    @SuppressWarnings("deprecation")
     @Override
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 4));
@@ -110,7 +111,7 @@ public class WitchClass extends PlayerClassBase {
         if (id != -1) {
             Game g = GameManager.getInstance().getGame(id);
             for (Player p : g.getActivePlayers()) {
-                final Player pl = player;
+                final Player pl = p;
                 pl.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 1000, 1000000));
                 
                 Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable() {
@@ -143,25 +144,25 @@ public class WitchClass extends PlayerClassBase {
     public ChatColor getPrefix() {
         return ChatColor.BLUE;
     }
-
+    
     @Override
     public void PlayerDamaged() {
         // TODO Auto-generated method stub
         
     }
-
+    
     @Override
     public void PlayerDeath() {
         // TODO Auto-generated method stub
         
     }
-
+    
     @Override
     public void PlayerShootArrow(Entity projectile) {
         // TODO Auto-generated method stub
         
     }
-
+    
     @Override
     public void PlayerPlaceBlock(Block block) {
         // TODO Auto-generated method stub

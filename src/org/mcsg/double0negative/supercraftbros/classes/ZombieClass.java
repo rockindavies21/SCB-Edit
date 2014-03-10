@@ -21,7 +21,8 @@ public class ZombieClass extends PlayerClassBase{
 	}
 	
 	
-	public void PlayerSpawn(){
+	@SuppressWarnings("deprecation")
+    public void PlayerSpawn(){
 		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 8000, 2));
 
 		PlayerInventory i = player.getInventory();

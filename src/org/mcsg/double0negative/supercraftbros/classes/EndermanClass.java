@@ -1,7 +1,5 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
-import java.util.Set;
-
 import net.minecraft.server.v1_7_R1.PacketPlayOutWorldEvent;
 
 import org.bukkit.ChatColor;
@@ -16,7 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.mcsg.double0negative.supercraftbros.GameManager;
 import org.mcsg.double0negative.supercraftbros.util.Colorizer;
 
 public class EndermanClass extends PlayerClassBase {
@@ -26,6 +23,7 @@ public class EndermanClass extends PlayerClassBase {
         // TODO Auto-generated constructor stub
     }
     
+    @SuppressWarnings("deprecation")
     @Override
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 2));
@@ -72,9 +70,6 @@ public class EndermanClass extends PlayerClassBase {
             if (smash) {
                 if (player.isSneaking()) {
                     sne = true;
-                    
-                    Set<Player> pls = GameManager.getInstance().getGamePlayer(player).getActivePlayers();
-                    
                     Location l = player.getLocation();
                     player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 1000, 1));
                     SendPacketToAll(new PacketPlayOutWorldEvent(2003, l.getBlockX(), l.getBlockY() + 1, l.getBlockZ(), 0, false));
@@ -90,49 +85,48 @@ public class EndermanClass extends PlayerClassBase {
         // TODO Auto-generated method stub
         return ClassType.ENDERMAN;
     }
-
-
+    
     @Override
     public ChatColor getPrefix() {
         return ChatColor.LIGHT_PURPLE;
     }
-
+    
     @Override
     public void PlayerDamaged() {
         // TODO Auto-generated method stub
         
     }
-
+    
     @Override
     public void PlayerInteract(Action action) {
         // TODO Auto-generated method stub
         
     }
-
+    
     @Override
     public void PlayerAttack(Player victim) {
         // TODO Auto-generated method stub
         
     }
-
+    
     @Override
     public void PlayerDeath() {
         // TODO Auto-generated method stub
         
     }
-
+    
     @Override
     public void PlayerShootArrow(Entity projectile) {
         // TODO Auto-generated method stub
         
     }
-
+    
     @Override
     public void Smash() {
         // TODO Auto-generated method stub
         
     }
-
+    
     @Override
     public void PlayerPlaceBlock(Block block) {
         // TODO Auto-generated method stub

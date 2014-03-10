@@ -42,6 +42,7 @@ public class PlayerClassEvents implements Listener {
         System.out.println("lighing");
         final Block b = e.getBlock();
         Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable() {
+            @SuppressWarnings("deprecation")
             public void run() {
                 b.setTypeId(0);
                 b.getState().update();

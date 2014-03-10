@@ -22,7 +22,8 @@ public class SkeletonClass extends PlayerClassBase{
 		// TODO Auto-generated constructor stub
 	}
 
-	public void PlayerSpawn(){
+	@SuppressWarnings("deprecation")
+    public void PlayerSpawn(){
 		player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 8000, 2));
 
 		PlayerInventory i = player.getInventory();
