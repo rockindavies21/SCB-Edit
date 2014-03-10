@@ -8,7 +8,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
@@ -61,7 +63,6 @@ public class WitchClass extends PlayerClassBase {
         player.updateInventory();
     }
     
-    @Override
     public void PlayerAttack(Player victim) {
         Random r = new Random();
         int i = r.nextInt(20);
@@ -141,6 +142,30 @@ public class WitchClass extends PlayerClassBase {
     @Override
     public ChatColor getPrefix() {
         return ChatColor.BLUE;
+    }
+
+    @Override
+    public void PlayerDamaged() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerDeath() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerShootArrow(Entity projectile) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerPlaceBlock(Block block) {
+        // TODO Auto-generated method stub
+        
     }
     
 }

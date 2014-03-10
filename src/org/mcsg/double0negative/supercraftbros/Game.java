@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
-import org.mcsg.double0negative.supercraftbros.classes.PlayerClass;
+import org.mcsg.double0negative.supercraftbros.classes.PlayerClassBase;
 
 import com.gmail.Jacob6816.scb.utils.Gameboard;
 
@@ -32,7 +32,7 @@ public class Game {
     private State state;
     private Gameboard b;
     private HashMap<Player, Integer> players = new HashMap<Player, Integer>();
-    private HashMap<Player, PlayerClass> pClasses = new HashMap<Player, PlayerClass>();
+    private HashMap<Player, PlayerClassBase> pClasses = new HashMap<Player, PlayerClassBase>();
     private ArrayList<Player> inactive = new ArrayList<Player>();
     private ArrayList<Player> queue = new ArrayList<Player>();
     
@@ -141,7 +141,7 @@ public class Game {
     
     boolean started = false;
     
-    public void setPlayerClass(Player player, PlayerClass playerClass) {
+    public void setPlayerClass(Player player, PlayerClassBase playerClass) {
         if (player.hasPermission("scb.class." + playerClass.getName())) {
             clearPotions(player);
             player.sendMessage(ChatColor.GREEN + "You choose " + playerClass.getName() + "!");
@@ -245,7 +245,7 @@ public class Game {
             Random r = new Random();
             Location l = SettingsManager.getInstance().getSpawnPoint(gameID, r.nextInt(spawnCount) + 1);
             p.teleport(getSafePoint(l));
-            getPlayerClass(p).PlayerSpawn();
+            getPlayerClassBase(p).PlayerSpawn();
         }
         
     }
@@ -338,7 +338,7 @@ public class Game {
         return state;
     }
     
-    public PlayerClass getPlayerClass(Player p) {
+    public PlayerClassBase getPlayerClassBase(Player p) {
         return pClasses.get(p);
     }
     

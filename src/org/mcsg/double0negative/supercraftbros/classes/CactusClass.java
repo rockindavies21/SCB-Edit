@@ -3,8 +3,11 @@ package org.mcsg.double0negative.supercraftbros.classes;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
@@ -79,6 +82,42 @@ public class CactusClass extends PlayerClassBase {
     @Override
     public ChatColor getPrefix() {
         return ChatColor.AQUA;
+    }
+
+    @Override
+    public void PlayerInteract(Action action) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerAttack(Player victim) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerDeath() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerShootArrow(Entity projectile) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void Smash() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerPlaceBlock(Block block) {
+        // TODO Auto-generated method stub
+        
     }
     
 }

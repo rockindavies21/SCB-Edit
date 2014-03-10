@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 
-public abstract class PlayerClassBase implements PlayerClass {
+public abstract class PlayerClassBase {
     
     Player player;
     protected boolean smash = false;
@@ -29,71 +29,14 @@ public abstract class PlayerClassBase implements PlayerClass {
         this.player = p;
     }
     
-    @Override
-    public void PlayerDamaged() {
-        if (smash) {
-            player.setHealth(20D);
-        }
-    }
+    public abstract PlayerClassBase newInstance(Player p);
     
-    @Override
-    public void PlayerDeath() {
-        // TODO Auto-generated method stub
-        
-    }
-    
-    @Override
-    public void PlayerAttack(Player victim) {
-        // TODO Auto-generated method stub
-        
-    }
-    
-    @Override
-    public void PlayerSpawn() {
-        // TODO Auto-generated method stub
-        
-    }
-    
-    @Override
-    public void PlayerPlaceBlock(Block b) {
-        // TODO Auto-generated method stub
-        
-    }
-    
-    @Override
-    public abstract PlayerClass newInstance(Player p);
-    
-    @Override
     public abstract ClassType getType();
     
     public abstract String getName();
     
     public abstract ChatColor getPrefix();
     
-    @Override
-    public void PlayerShootArrow(Entity pro) {
-        // TODO Auto-generated method stub
-        
-    }
-    
-    @Override
-    public void Smash() {
-        player.getInventory().removeItem(player.getItemInHand());
-        
-    }
-    
-    @Override
-    public void PlayerInteract(Action a) {
-        // TODO Auto-generated method stub
-        
-    }
-    
-    /*
-     * [7:30:07 PM] DubstepCraig: I'd rather have corrupt server and earn loads
-     * of money then have a HQ server and only earn 15k a month
-     */
-    
-    @Override
     public void PlayerMove() {
         if (player.isFlying()) {
             player.setFlying(false);
@@ -179,4 +122,19 @@ public abstract class PlayerClassBase implements PlayerClass {
         return 0;
     }
     
+    public abstract void PlayerSpawn();
+    
+    public abstract void PlayerDamaged();
+    
+    public abstract void PlayerInteract(Action action);
+    
+    public abstract void PlayerAttack(Player victim);
+    
+    public abstract void PlayerDeath();
+    
+    public abstract void PlayerShootArrow(Entity projectile);
+    
+    public abstract void Smash();
+    
+    public abstract void PlayerPlaceBlock(Block block);
 }

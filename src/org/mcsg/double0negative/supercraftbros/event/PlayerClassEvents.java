@@ -58,10 +58,10 @@ public class PlayerClassEvents implements Listener {
             Game g = gm.getGame(id);
             if (g.getState() == Game.State.INGAME) {
                 if (e.getPlayer().getItemInHand().getType() == Material.DIAMOND_AXE) {
-                    g.getPlayerClass(p).Smash();
+                    g.getPlayerClassBase(p).Smash();
                 }
                 else {
-                    g.getPlayerClass(p).PlayerInteract(e.getAction());
+                    g.getPlayerClassBase(p).PlayerInteract(e.getAction());
                 }
             }
             // e.setCancelled(true);
@@ -76,7 +76,7 @@ public class PlayerClassEvents implements Listener {
         int id = gm.getPlayerGameId(p);
         if (id != -1) {
             Game g = gm.getGame(id);
-            if (g.getState() == Game.State.INGAME) g.getPlayerClass(p).PlayerMove();
+            if (g.getState() == Game.State.INGAME) g.getPlayerClassBase(p).PlayerMove();
         }
     }
     
@@ -89,7 +89,7 @@ public class PlayerClassEvents implements Listener {
                 Game g = gm.getGame(game);
                 if (g.getState() == Game.State.INGAME) {
                     
-                    g.getPlayerClass(p).PlayerDamaged();
+                    g.getPlayerClassBase(p).PlayerDamaged();
                 }
             }
         }
@@ -154,7 +154,7 @@ public class PlayerClassEvents implements Listener {
             Player p = (Player) e.getEntity();
             int game = GameManager.getInstance().getPlayerGameId(p);
             if (game != -1) {
-                gm.getGame(game).getPlayerClass(p).PlayerShootArrow(e.getProjectile());
+                gm.getGame(game).getPlayerClassBase(p).PlayerShootArrow(e.getProjectile());
             }
             
         }

@@ -2,9 +2,11 @@ package org.mcsg.double0negative.supercraftbros.classes;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
@@ -77,6 +79,36 @@ public class WitherClass extends PlayerClassBase {
     @Override
     public ChatColor getPrefix() {
         return ChatColor.DARK_PURPLE;
+    }
+
+    @Override
+    public void PlayerDamaged() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerInteract(Action action) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerDeath() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void Smash() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerPlaceBlock(Block block) {
+        // TODO Auto-generated method stub
+        
     }
     
 }

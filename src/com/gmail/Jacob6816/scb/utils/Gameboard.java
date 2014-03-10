@@ -10,18 +10,19 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.mcsg.double0negative.supercraftbros.Game;
-import org.mcsg.double0negative.supercraftbros.classes.PlayerClass;
+import org.mcsg.double0negative.supercraftbros.classes.ClassType;
+import org.mcsg.double0negative.supercraftbros.classes.PlayerClassBase;
 
 public class Gameboard {
     private final String lives = ChatColor.AQUA + "" + ChatColor.BOLD + "Lives" + ChatColor.RESET;
     private final String r = ChatColor.RESET.toString();
     private Game game;
     private Scoreboard board = null;
-    private PlayerClass.ClassType[] classes;
+    private ClassType[] classes;
     
     public Gameboard(Game game) {
         this.game = game;
-        classes = PlayerClass.ClassType.values();
+        classes = ClassType.values();
         setup(true);
     }
     
@@ -37,13 +38,13 @@ public class Gameboard {
         board.getObjective(ChatColor.stripColor(lives)).setDisplayName(lives);
         board.clearSlot(DisplaySlot.SIDEBAR);
         board.getObjective(ChatColor.stripColor(lives)).setDisplaySlot(DisplaySlot.SIDEBAR);
-        for (PlayerClass.ClassType t : classes) {
+        for (ClassType t : classes) {
             String team = localeCaps(t.toString());
             if (board.getTeam(team) == null) board.registerNewTeam(team);
             board.getTeam(team).setAllowFriendlyFire(true);
             board.getTeam(team).setCanSeeFriendlyInvisibles(false);
             board.getTeam(team).setSuffix(ChatColor.RESET + "");
-            board.getTeam(team).setPrefix("[" + team + "]" + r);
+            board.getTeam(team).setPrefix(getPrefix(t));
         }
         if (teams) reloadTeams();
         reloadLives();
@@ -72,12 +73,10 @@ public class Gameboard {
         }
         if (game.getActivePlayers().size() == 0) return;
         for (Player p : game.getActivePlayers()) {
-            PlayerClass c = game.getPlayerClass(p);
+            PlayerClassBase c = game.getPlayerClassBase(p);
             if (c != null) {
                 Team t = board.getTeam(localeCaps(c.getType().toString()));
                 t.addPlayer(p);
-                String text = game.getPlayerClass(p).getPrefix() + t.getPrefix();
-                t.setPrefix(text.length() > 16 ? text.substring(0, 13) + "]" + r : text);
             }
         }
     }
@@ -104,5 +103,10 @@ public class Gameboard {
     
     public void hidePlayer(OfflinePlayer p) {
         board.resetScores(p);
+    }
+    
+    private String getPrefix(ClassType t) {
+        String s = t.getColor() + "[" + localeCaps(t.toString()) + "]" + r;
+        return s.length() > 16 ? s.substring(0, 13) + "]" + r : s;
     }
 }

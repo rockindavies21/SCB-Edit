@@ -2,6 +2,7 @@ package org.mcsg.double0negative.supercraftbros.classes;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Fireball;
@@ -80,6 +81,42 @@ public class GhastClass extends PlayerClassBase{
     @Override
     public ChatColor getPrefix() {
         return ChatColor.GRAY;
+    }
+
+    @Override
+    public void PlayerDamaged() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerAttack(Player victim) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerDeath() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerShootArrow(Entity projectile) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void Smash() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void PlayerPlaceBlock(Block block) {
+        // TODO Auto-generated method stub
+        
     }
 
 }
