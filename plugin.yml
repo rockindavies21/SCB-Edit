@@ -1,6 +1,7 @@
 name: SuperCraftBros
-authors: [Double0negative, MCSG]
-version: 1
+author: Double0negative
+authors: [Double0negative, MCSG, JRL1004, mike1665]
+version: 1.2.1
 main: org.mcsg.double0negative.supercraftbros.SuperCraftBros
 
 commands:
@@ -8,3 +9,5 @@ commands:
     description: Super Craft Bros
     usage: /scb(command) (args)
     aliases: [scb]
+
+depend: [WorldEdit]
