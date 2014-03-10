@@ -47,15 +47,15 @@ public class ClickSignEvent implements Listener {
     
     @EventHandler
     public void onSignChange(SignChangeEvent e) {
-        if (e.getLine(0).equalsIgnoreCase("[join]")) {
+     /*   if (e.getLine(0).equalsIgnoreCase("[join]")) {
         	int game = Integer.parseInt(e.getLine(1));
         	Game g = GameManager.getInstance().getGame(game);
             e.setLine(0, "§3[Join]");
             e.setLine(2, "§eClick to join");
             e.setLine(3, "§b" + g.getActivePlayers() + " /4");
             
-        }
-        else if (e.getLine(0).equalsIgnoreCase("[class]")) {
+        }*/
+        if (e.getLine(0).equalsIgnoreCase("[class]")) {
             e.setLine(0, "§2[Class]");
             e.setLine(2, "§bClick to pick");
             e.setLine(3, "§bA class");

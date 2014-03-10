@@ -2,6 +2,7 @@ package org.mcsg.double0negative.supercraftbros;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -10,7 +11,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -35,12 +38,14 @@ public class Game {
     private HashMap<Player, PlayerClassBase> pClasses = new HashMap<Player, PlayerClassBase>();
     private ArrayList<Player> inactive = new ArrayList<Player>();
     private ArrayList<Player> queue = new ArrayList<Player>();
+    List<Location>signLocs = new ArrayList<Location>();
     
     public Game(int a) {
         this.gameID = a;
         
         init();
     }
+    
     
     public void init() {
         FileConfiguration s = SettingsManager.getInstance().getSystemConfig();
@@ -59,6 +64,42 @@ public class Game {
         spawnCount = SettingsManager.getInstance().getSpawnCount(gameID);
         
     }
+    
+	@SuppressWarnings("static-access")
+	public void UpdateSigns()
+	{
+		for(Location loc:this.signLocs)
+		{
+			if(loc.getBlock() != null)
+			{
+				if(loc.getBlock().getType().equals(Material.WALL_SIGN) || loc.getBlock().getType().equals(Material.SIGN) || loc.getBlock().getType().equals(Material.SIGN_POST))
+				{
+
+					Sign sign = (Sign) loc.getBlock().getState();
+		        	int game = Integer.parseInt(sign.getLine(1));
+		        	Game g = GameManager.getInstance().getGame(game);
+					if(this.getState().equals(state.LOBBY))
+					{
+						sign.setLine(0, ChatColor.BLACK+"["+ChatColor.GREEN+""+ChatColor.BOLD+"Join"+ChatColor.BLACK+"]");
+					}else
+					if(this.getState().equals(state.WAITING))
+					{
+						sign.setLine(0, ChatColor.BLACK+"["+ChatColor.DARK_RED+""+ChatColor.BOLD+"Join"+ChatColor.BLACK+"]");
+					}else
+					if(this.getState().equals(state.INGAME))
+					{
+						sign.setLine(0, "["+ChatColor.DARK_RED+""+ChatColor.BOLD+"In Game"+ChatColor.BLACK+"]");
+					}
+					
+					sign.setLine(2, ChatColor.RED+""+ChatColor.BOLD+""+ "Click to Join");
+					
+					sign.setLine(3, ChatColor.YELLOW+""+ChatColor.BOLD+ g.getActivePlayers() + " /4");
+					
+					sign.update();
+				}
+			}
+		}
+	}
     
     public void addPlayer(Player p) {
         if (state == State.LOBBY && getPlayers().size() < 10) {

@@ -1,5 +1,7 @@
 package org.mcsg.double0negative.supercraftbros;
 
+import java.io.IOException;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -15,14 +17,10 @@ import org.mcsg.double0negative.supercraftbros.event.PlayerDamage;
 import org.mcsg.double0negative.supercraftbros.event.PlayerJoin;
 import org.mcsg.double0negative.supercraftbros.event.PlayerLeave;
 import org.mcsg.double0negative.supercraftbros.event.PlayerTeleport;
-import org.mcsg.double0negative.supercraftbros.event.SignUpdateEvent;
+import org.mcstats.Metrics;
 
 import com.gmail.Jacob6816.scb.utils.InventoryClassEvent;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
-
-import java.io.IOException;
-
-import org.mcstats.*;
 
 public class SuperCraftBros extends JavaPlugin{
 
@@ -38,7 +36,7 @@ public class SuperCraftBros extends JavaPlugin{
 		
 		this.getServer().getPluginManager().registerEvents(new BreakBlock(), this);
 		this.getServer().getPluginManager().registerEvents(new ClickSignEvent(), this);
-		this.getServer().getPluginManager().registerEvents(new SignUpdateEvent(), this);
+		//this.getServer().getPluginManager().registerEvents(new SignUpdateEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerClassEvents(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerDamage(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);

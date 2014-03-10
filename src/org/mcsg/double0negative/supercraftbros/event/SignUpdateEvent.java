@@ -1,4 +1,4 @@
-package org.mcsg.double0negative.supercraftbros.event;
+/*package org.mcsg.double0negative.supercraftbros.event;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
- 
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,7 +30,7 @@ public class SignUpdateEvent implements Listener {
         @EventHandler
         public void onBlockPlace(BlockPlaceEvent e){
                 if (e.getBlock().getType() == Material.SIGN_POST || e.getBlock().getType() == Material.WALL_SIGN){
-                        Sign sign = (Sign) e.getBlock();
+                        Sign sign = (Sign) e.getBlock().getState();
                         if (sign.getLine(0).equalsIgnoreCase("[join]")){ //also check if game exists
                                 saveLoc(sign.getLine(1), sign.getLocation());
                         }
@@ -39,7 +39,7 @@ public class SignUpdateEvent implements Listener {
        
         public void updateSigns(String game){
                 for (Location loc : getLocs(game)){
-                        Sign sign = (Sign) loc.getBlock();
+                        Sign sign = (Sign) loc.getBlock().getState();
                         sign.setLine(3, "PLAYERS/MAX");
                 }
         }
@@ -105,4 +105,4 @@ public class SignUpdateEvent implements Listener {
         getSignConfig().set(key, list);
         saveSignConfig();
     }
-}
+}*/
