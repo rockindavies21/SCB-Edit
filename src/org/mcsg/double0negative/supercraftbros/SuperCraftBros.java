@@ -15,6 +15,7 @@ import org.mcsg.double0negative.supercraftbros.event.PlayerDamage;
 import org.mcsg.double0negative.supercraftbros.event.PlayerJoin;
 import org.mcsg.double0negative.supercraftbros.event.PlayerLeave;
 import org.mcsg.double0negative.supercraftbros.event.PlayerTeleport;
+import org.mcsg.double0negative.supercraftbros.event.SignUpdateEvent;
 
 import com.gmail.Jacob6816.scb.utils.InventoryClassEvent;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
@@ -37,6 +38,7 @@ public class SuperCraftBros extends JavaPlugin{
 		
 		this.getServer().getPluginManager().registerEvents(new BreakBlock(), this);
 		this.getServer().getPluginManager().registerEvents(new ClickSignEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new SignUpdateEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerClassEvents(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerDamage(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);

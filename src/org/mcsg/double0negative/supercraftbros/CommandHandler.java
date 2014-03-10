@@ -89,8 +89,11 @@ public class CommandHandler implements CommandExecutor
 			p.sendMessage(ChatColor.GREEN + "====================" + ChatColor.AQUA + "SCB HELP" + ChatColor.GREEN + "====================");
 			p.sendMessage(ChatColor.LIGHT_PURPLE + "/scb <command> <args>");
 			p.sendMessage(ChatColor.AQUA + "Make a World-Edit slections then do - /scb createarena");
-			p.sendMessage(ChatColor.AQUA + "Set the lobby - /scb setlobbyspawm");
-			p.sendMessage(ChatColor.AQUA + "Set the specific game lobby - /scb setlobbyspawn {id}");
+			p.sendMessage(ChatColor.AQUA + "Set the lobby - /scb setlobbyspawm - Mains SCB Lobby");
+			p.sendMessage(ChatColor.AQUA + "Set the specific game lobby - /scb setlobby {id}");
+			p.sendMessage(ChatColor.AQUA + "Set the game spawnpoints - /scb setspawn next [1-8 Spawns]");
+			p.sendMessage(ChatColor.AQUA + "To leave - /scb leave");
+			p.sendMessage(ChatColor.AQUA + "To force start game - /scb start");
 			p.sendMessage(ChatColor.AQUA + "Set the game spawnpoints - /acb setspawn next [1-8 Spawns]");
 			
 		}
