@@ -8,6 +8,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Damageable;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -90,9 +91,9 @@ public class EnderdragonClass extends PlayerClassBase {
     @Override
     public void PlayerSpawn() {
         player.getInventory().setContents(new ItemStack[] {});
-        player.getInventory().setArmorContents(new ItemStack[] {});
-        player.getInventory().setItem(0, new ItemStack(Material.ARROW));
-        player.getInventory().setItem(0, new ItemStack(Material.SULPHUR));
+        player.getInventory().setArmorContents(new ItemStack[] { null, null, new ItemStack(Material.CHAINMAIL_CHESTPLATE), null });
+        player.getInventory().setItem(0, new ItemStack(Material.STONE_SWORD));
+        player.getInventory().getItem(0).addEnchantment(Enchantment.DAMAGE_ALL, 3);
     }
     
     @Override
@@ -106,25 +107,21 @@ public class EnderdragonClass extends PlayerClassBase {
     }
     
     @Override
-    public void PlayerInteract(Action action) {
-    }
+    public void PlayerInteract(Action action) {}
     
     @Override
-    public void PlayerAttack(Player victim) {
-    }
+    public void PlayerAttack(Player victim) {}
     
     @Override
-    public void PlayerDeath() {
-    }
+    public void PlayerDeath() {}
     
     @Override
-    public void PlayerShootArrow(Entity projectile) {
-    }
+    public void PlayerShootArrow(Entity projectile) {}
     
     @SuppressWarnings("deprecation")
     @Override
     public void PlayerPlaceBlock(Block block) {
-        for(BlockFace b : BlockFace.values()) {
+        for (BlockFace b : BlockFace.values()) {
             block.getRelative(b).setTypeIdAndData(block.getTypeId(), block.getData(), false);
         }
     }
