@@ -31,7 +31,7 @@ public class Gameboard {
         board.clearSlot(DisplaySlot.SIDEBAR);
         board.getObjective(ChatColor.stripColor(lives)).setDisplaySlot(DisplaySlot.SIDEBAR);
         for (PlayerClass.ClassType t : classes) {
-            String team = localeCaps(t.name());
+            String team = localeCaps(t.toString());
             if (board.getTeam(team) == null) board.registerNewTeam(team);
             board.getTeam(team).setAllowFriendlyFire(true);
             board.getTeam(team).setCanSeeFriendlyInvisibles(false);
