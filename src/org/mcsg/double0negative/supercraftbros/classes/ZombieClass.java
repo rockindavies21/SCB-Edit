@@ -1,5 +1,6 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -40,7 +41,7 @@ public class ZombieClass extends PlayerClassBase{
 		i1.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, 1);
 		i1.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
 		i.addItem(i1);
-		
+		player.setDisplayName(ChatColor.BLUE + "[Zombie]" + ChatColor.WHITE + player.getName());
 		player.updateInventory();
 	}
 	

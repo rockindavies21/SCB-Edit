@@ -1,5 +1,7 @@
 package org.mcsg.double0negative.supercraftbros;
 
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +31,7 @@ public class Game {
         INGAME, LOBBY, DISABLED, WAITING
     }
     
-    // 209.188.0.154
+    // 2lolololol
     
     private int gameID;
     private int spawnCount;

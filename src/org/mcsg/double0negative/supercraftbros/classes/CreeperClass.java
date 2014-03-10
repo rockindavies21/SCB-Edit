@@ -3,6 +3,7 @@ package org.mcsg.double0negative.supercraftbros.classes;
 
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -72,7 +73,7 @@ public class CreeperClass extends PlayerClassBase{
 		
 		ItemStack i2 = new ItemStack(373, 10, (short)16396);
 		i.addItem(i2);
-		
+		player.setDisplayName(ChatColor.DARK_GREEN + "[Creeper]" + ChatColor.WHITE + player.getName());
 		
 		player.updateInventory();
 	}

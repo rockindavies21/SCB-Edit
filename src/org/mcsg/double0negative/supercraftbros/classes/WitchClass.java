@@ -6,9 +6,11 @@ import java.util.Random;
 
 
 
+
 import net.minecraft.server.v1_7_R1.PacketPlayOutWorldEvent;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -61,6 +63,8 @@ public class WitchClass extends PlayerClassBase{
 		i.addItem(i2);
 
 		i.addItem(new ItemStack(Material.SUGAR));
+		
+		player.setDisplayName(ChatColor.LIGHT_PURPLE + "[Witch]" + ChatColor.WHITE + player.getName());
 
 
 		player.updateInventory();

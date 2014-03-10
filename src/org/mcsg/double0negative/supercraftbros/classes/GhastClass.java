@@ -1,5 +1,6 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -48,6 +49,7 @@ public class GhastClass extends PlayerClassBase{
 
 		i.addItem(new ItemStack(Material.FIREBALL));
 
+		player.setDisplayName(ChatColor.DARK_GRAY + "[Ghast]" + ChatColor.WHITE + player.getName());
 		player.updateInventory();
 
 	}

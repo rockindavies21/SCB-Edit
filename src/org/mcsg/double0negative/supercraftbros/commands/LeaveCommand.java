@@ -11,6 +11,7 @@ public class LeaveCommand implements SubCommand{
 		int game = GameManager.getInstance().getPlayerGameId(player);
 		if(game != -1){
 			GameManager.getInstance().getGame(game).removePlayer(player, false);
+			player.setDisplayName(player.getName());
 			player.sendMessage(ChatColor.AQUA + "You left! :(");
 		}
 		return true;

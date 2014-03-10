@@ -2,6 +2,7 @@ package org.mcsg.double0negative.supercraftbros.classes;
 
 import java.util.Random;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -52,6 +53,7 @@ public class SpiderClass extends PlayerClassBase{
 		i1.addUnsafeEnchantment(Enchantment.KNOCKBACK, 2);
 		i1.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 1);
 		i.addItem(i1);
+		player.setDisplayName(ChatColor.BLACK + "[Spider]" + ChatColor.WHITE + player.getName());
 		
 		player.updateInventory();
 		

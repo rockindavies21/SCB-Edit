@@ -1,5 +1,6 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
@@ -57,7 +58,7 @@ public class WitherClass extends PlayerClassBase{
 		i.addItem(i1);
 		
 		i.addItem(new ItemStack(Material.ARROW));
-		
+		player.setDisplayName(ChatColor.AQUA + "[Wither]" + ChatColor.WHITE + player.getName());
 		
 		player.updateInventory();
 		

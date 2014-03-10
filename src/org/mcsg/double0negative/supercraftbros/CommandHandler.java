@@ -3,8 +3,6 @@ package org.mcsg.double0negative.supercraftbros;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
-
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,15 +10,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
-import org.mcsg.double0negative.supercraftbros.commands.CreateArenaCommand;
-import org.mcsg.double0negative.supercraftbros.commands.DisableCommand;
-import org.mcsg.double0negative.supercraftbros.commands.EnableCommand;
-import org.mcsg.double0negative.supercraftbros.commands.LeaveCommand;
-import org.mcsg.double0negative.supercraftbros.commands.SetLobbyGameSpawn;
-import org.mcsg.double0negative.supercraftbros.commands.SetLobbySpawnCommand;
-import org.mcsg.double0negative.supercraftbros.commands.SetSpawnCommand;
-import org.mcsg.double0negative.supercraftbros.commands.StartCommand;
-import org.mcsg.double0negative.supercraftbros.commands.SubCommand;
+import org.mcsg.double0negative.supercraftbros.commands.*;
 
 
 public class CommandHandler implements CommandExecutor

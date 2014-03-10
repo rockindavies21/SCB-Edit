@@ -1,6 +1,7 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -51,6 +52,7 @@ public class CactusClass extends PlayerClassBase{
 		i1.addUnsafeEnchantment(Enchantment.KNOCKBACK, 1);
 		i1.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 2);
 		i.addItem(i1);
+		player.setDisplayName(ChatColor.GRAY + "[Cactus]" + ChatColor.WHITE + player.getName());
 
 
 		player.updateInventory();

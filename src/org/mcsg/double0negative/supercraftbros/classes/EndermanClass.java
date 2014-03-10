@@ -7,8 +7,10 @@ import java.util.Set;
 
 
 
+
 import net.minecraft.server.v1_7_R1.PacketPlayOutWorldEvent;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -55,6 +57,7 @@ public class EndermanClass extends PlayerClassBase{
 		i.addItem(i1);
 
 		i.addItem(new ItemStack(Material.ENDER_PEARL, 20));
+		player.setDisplayName(ChatColor.DARK_PURPLE + "[Enderman]" + ChatColor.WHITE + player.getName());
 
 		player.updateInventory();
 

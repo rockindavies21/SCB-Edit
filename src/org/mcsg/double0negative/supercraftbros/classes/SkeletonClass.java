@@ -1,5 +1,6 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -42,7 +43,7 @@ public class SkeletonClass extends PlayerClassBase{
 		i.addItem(i1);
 		
 		i.addItem(new ItemStack(Material.ARROW, 1));
-		
+		player.setDisplayName(ChatColor.GRAY + "[Skeleton]" + ChatColor.WHITE + player.getName());
 		
 		player.updateInventory();
 		
