@@ -52,5 +52,11 @@ public class ZombieClass extends PlayerClassBase{
 	public String getName(){
 		return "Zombie";
 	}
+
+
+    @Override
+    public ClassType getType() {
+        return ClassType.ZOMBIE;
+    }
 	
 }

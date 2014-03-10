@@ -70,4 +70,10 @@ public class GhastClass extends PlayerClassBase{
 		return "Ghast";
 	}
 
+    @Override
+    public ClassType getType() {
+        // TODO Auto-generated method stub
+        return ClassType.GHAST;
+    }
+
 }

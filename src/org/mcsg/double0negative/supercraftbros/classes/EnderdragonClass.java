@@ -74,4 +74,10 @@ public class EnderdragonClass extends PlayerClassBase {
         
     }
     
+    @Override
+    public ClassType getType() {
+        // TODO Auto-generated method stub
+        return ClassType.ENDERDRAGON;
+    }
+    
 }

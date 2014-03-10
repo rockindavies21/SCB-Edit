@@ -56,4 +56,10 @@ public class SkeletonClass extends PlayerClassBase{
 	public String getName(){
 		return "Skeleton";
 	}
+
+    @Override
+    public ClassType getType() {
+        // TODO Auto-generated method stub
+        return ClassType.SKELETON;
+    }
 }

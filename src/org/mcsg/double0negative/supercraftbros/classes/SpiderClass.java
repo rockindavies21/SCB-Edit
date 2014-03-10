@@ -67,6 +67,12 @@ public class SpiderClass extends PlayerClassBase{
 	public String getName(){
 		return "Spider";
 	}
+
+    @Override
+    public ClassType getType() {
+        // TODO Auto-generated method stub
+        return ClassType.SPIDER;
+    }
 	
 	
 	

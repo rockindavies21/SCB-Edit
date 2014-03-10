@@ -72,7 +72,7 @@ public class Gameboard {
         if (game.getActivePlayers().size() == 0) return;
         for (Player p : game.getActivePlayers()) {
             PlayerClass c = game.getPlayerClass(p);
-            if (c != null) board.getTeam(localeCaps(c.getClass().getSimpleName().substring(0, c.getClass().getSimpleName().indexOf("Class")))).addPlayer(p);
+            if (c != null) board.getTeam(localeCaps(c.getType().toString())).addPlayer(p);
         }
     }
     
