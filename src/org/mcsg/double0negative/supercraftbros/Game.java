@@ -73,7 +73,7 @@ public class Game {
             
             getPlayers().put(p, 3);
             p.setGameMode(GameMode.SURVIVAL);
-            p.setHealth(20);
+            p.setHealth(20D);
             p.setFoodLevel(20);
             
             TabAPI.setPriority(GameManager.getInstance().getPlugin(), p, 2);
