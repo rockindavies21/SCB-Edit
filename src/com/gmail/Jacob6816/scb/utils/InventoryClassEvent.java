@@ -33,16 +33,23 @@ public class InventoryClassEvent implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player)) return;
+        System.out.println(1);
         final Player p = (Player) event.getWhoClicked();
         int id = GameManager.getInstance().getPlayerGameId(p);
         if (id < 0) return;
+        System.out.println(2);
         event.setCancelled(true);
         if (!event.getInventory().getName().equals(inv.getName())) return;
+        System.out.println(3);
         ItemStack c = event.getCurrentItem();
         if (c == null || c.getType() == Material.AIR) c = event.getCursor();
+        System.out.println(4);
         if (c == null || c.getType() == Material.AIR) return;
+        System.out.println(5);
         if (!c.hasItemMeta()) return;
+        System.out.println(6);
         if (!c.getItemMeta().hasDisplayName()) return;
+        System.out.println(7);
         for (ClassType t : ClassType.values()) {
             if (t.localeCaps(t.toString()).equals(ChatColor.stripColor(c.getItemMeta().getDisplayName()))) {
                 Game g = GameManager.getInstance().getGamePlayer(p);
