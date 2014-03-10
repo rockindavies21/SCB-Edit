@@ -33,7 +33,7 @@ public class WitchClass extends PlayerClassBase {
     }
     
     @SuppressWarnings("deprecation")
-    @Override
+    
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 4));
         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 80000, 4));
@@ -137,37 +137,36 @@ public class WitchClass extends PlayerClassBase {
         return new WitchClass(p);
     }
     
-    @Override
+    
     public ClassType getType() {
         return ClassType.WITCH;
     }
     
-    @Override
+    
     public ChatColor getPrefix() {
         return ChatColor.BLUE;
     }
     
-    @Override
+    
     public void PlayerDamaged() {
-        // TODO Auto-generated method stub
+        
         
     }
     
-    @Override
+    
     public void PlayerDeath() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
+    
     public void PlayerShootArrow(Entity projectile) {
-        // TODO Auto-generated method stub
+        
         
     }
     
-    @Override
+    
     public void PlayerPlaceBlock(Block block) {
-        // TODO Auto-generated method stub
+        
         
     }
     

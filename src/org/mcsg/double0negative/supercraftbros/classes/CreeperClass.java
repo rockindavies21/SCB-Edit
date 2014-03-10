@@ -24,7 +24,7 @@ public class CreeperClass extends PlayerClassBase {
     
     public CreeperClass(Player p) {
         super(p);
-        // TODO Auto-generated constructor stub
+        
     }
     
     @SuppressWarnings("deprecation")
@@ -47,7 +47,6 @@ public class CreeperClass extends PlayerClassBase {
     }
     
     @SuppressWarnings("deprecation")
-    @Override
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 8000, 2));
         
@@ -87,50 +86,36 @@ public class CreeperClass extends PlayerClassBase {
         return "Creeper";
     }
     
-    @Override
     public ClassType getType() {
-        // TODO Auto-generated method stub
+        
         return ClassType.CREEPER;
     }
     
-    @Override
     public ChatColor getPrefix() {
         return ChatColor.GREEN;
     }
     
-    @Override
     public void PlayerDamaged() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerInteract(Action action) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerAttack(Player victim) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerDeath() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerShootArrow(Entity projectile) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void Smash() {
-        // TODO Auto-generated method stub
         
     }
     

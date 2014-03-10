@@ -32,7 +32,6 @@ public class SpiderClass extends PlayerClassBase {
     }
     
     @SuppressWarnings("deprecation")
-    @Override
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 8000, 4));
         player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 8000, 2));
@@ -69,50 +68,36 @@ public class SpiderClass extends PlayerClassBase {
         return "Spider";
     }
     
-    @Override
     public ClassType getType() {
-        // TODO Auto-generated method stub
+        
         return ClassType.SPIDER;
     }
     
-    @Override
     public ChatColor getPrefix() {
         return ChatColor.BLACK;
     }
     
-    @Override
     public void PlayerDamaged() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerInteract(Action action) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerDeath() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerShootArrow(Entity projectile) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void Smash() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerPlaceBlock(Block block) {
-        // TODO Auto-generated method stub
         
     }
 }

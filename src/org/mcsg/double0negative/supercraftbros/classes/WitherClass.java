@@ -20,7 +20,7 @@ public class WitherClass extends PlayerClassBase {
     
     public WitherClass(Player p) {
         super(p);
-        // TODO Auto-generated constructor stub
+        
     }
     
     public void PlayerAttack(Player victim) {
@@ -33,7 +33,6 @@ public class WitherClass extends PlayerClassBase {
     }
     
     @SuppressWarnings("deprecation")
-    @Override
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 8000, 4));
         
@@ -74,42 +73,34 @@ public class WitherClass extends PlayerClassBase {
         return "Wither";
     }
     
-    @Override
     public ClassType getType() {
         return ClassType.WITHER;
     }
-
-
-    @Override
+    
     public ChatColor getPrefix() {
         return ChatColor.DARK_PURPLE;
     }
-
-    @Override
+    
     public void PlayerDamaged() {
         // TODO Auto-generated method stub
         
     }
-
-    @Override
+    
     public void PlayerInteract(Action action) {
         // TODO Auto-generated method stub
         
     }
-
-    @Override
+    
     public void PlayerDeath() {
         // TODO Auto-generated method stub
         
     }
-
-    @Override
+    
     public void Smash() {
         // TODO Auto-generated method stub
         
     }
-
-    @Override
+    
     public void PlayerPlaceBlock(Block block) {
         // TODO Auto-generated method stub
         

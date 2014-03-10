@@ -22,11 +22,9 @@ public class EndermanClass extends PlayerClassBase {
     
     public EndermanClass(Player p) {
         super(p);
-        // TODO Auto-generated constructor stub
     }
     
     @SuppressWarnings("deprecation")
-    @Override
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 2));
         
@@ -82,57 +80,36 @@ public class EndermanClass extends PlayerClassBase {
         }
     }
     
-    @Override
-    public ClassType getType() {
-        // TODO Auto-generated method stub
-        return ClassType.ENDERMAN;
-    }
-    
-    @Override
-    public ChatColor getPrefix() {
-        return ChatColor.LIGHT_PURPLE;
-    }
-    
-    @Override
     public void PlayerDamaged() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerInteract(Action action) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerAttack(Player victim) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerDeath() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerShootArrow(Entity projectile) {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void Smash() {
-        // TODO Auto-generated method stub
         
     }
     
-    @Override
     public void PlayerPlaceBlock(Block block) {
-        // TODO Auto-generated method stub
         
+    }
+    
+    public ClassType getType() {
+        return ClassType.ENDERMAN;
     }
     
 }
