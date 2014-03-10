@@ -21,17 +21,24 @@ public class Gameboard {
     public Gameboard(Game game) {
         this.game = game;
         classes = PlayerClass.ClassType.values();
-        setup(true);
+        setup(false);
     }
     
     public void setup(boolean teams) {
         if (board == null) board = Bukkit.getScoreboardManager().getNewScoreboard();
         if (board.getObjective(ChatColor.stripColor(lives)) == null) board.registerNewObjective(ChatColor.stripColor(lives), "dummy");
+        if (board.getObjective("health") == null) {
+            board.registerNewObjective("health", "health");
+            board.clearSlot(DisplaySlot.BELOW_NAME);
+            board.getObjective("health").setDisplayName(ChatColor.DARK_RED + "" + ChatColor.BOLD + "♥");
+            board.getObjective("health").setDisplaySlot(DisplaySlot.BELOW_NAME);
+        }
         board.getObjective(ChatColor.stripColor(lives)).setDisplayName(lives);
         board.clearSlot(DisplaySlot.SIDEBAR);
         board.getObjective(ChatColor.stripColor(lives)).setDisplaySlot(DisplaySlot.SIDEBAR);
         for (PlayerClass.ClassType t : classes) {
             String team = localeCaps(t.toString());
+            System.out.println(team);
             if (board.getTeam(team) == null) board.registerNewTeam(team);
             board.getTeam(team).setAllowFriendlyFire(true);
             board.getTeam(team).setCanSeeFriendlyInvisibles(false);
