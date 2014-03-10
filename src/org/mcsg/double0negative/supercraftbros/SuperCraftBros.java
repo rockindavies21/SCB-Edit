@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.event.BreakBlock;
 import org.mcsg.double0negative.supercraftbros.event.ClickSignEvent;
+import org.mcsg.double0negative.supercraftbros.event.InventoryClassEvent;
 import org.mcsg.double0negative.supercraftbros.event.InventoryEvents;
 import org.mcsg.double0negative.supercraftbros.event.PlayerClassEvents;
 import org.mcsg.double0negative.supercraftbros.event.PlayerDamage;
@@ -41,6 +42,7 @@ public class SuperCraftBros extends JavaPlugin{
 		this.getServer().getPluginManager().registerEvents(new PlayerLeave(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerTeleport(), this);
 		this.getServer().getPluginManager().registerEvents(new InventoryEvents(), this);
+		this.getServer().getPluginManager().registerEvents(new InventoryClassEvent(), this);
 
 		this.getCommand("scb").setExecutor(new CommandHandler(this));
 		
