@@ -1,7 +1,5 @@
 package org.mcsg.double0negative.supercraftbros;
 
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,10 +71,10 @@ public class Game {
     }
     
     public void addPlayer(Player p) {
-        if (state == State.LOBBY && players.size() < 10) {
+        if (state == State.LOBBY && getPlayers().size() < 10) {
             p.teleport(SettingsManager.getInstance().getGameLobbySpawn(gameID));
             
-            players.put(p, 3);
+            getPlayers().put(p, 3);
             p.setGameMode(GameMode.SURVIVAL);
             p.setHealth(20);
             p.setFoodLevel(20);
@@ -89,7 +87,7 @@ public class Game {
         else if (state == State.INGAME) {
             p.sendMessage(ChatColor.RED + "Game already started!");
         }
-        else if (players.size() >= 10) {
+        else if (getPlayers().size() >= 10) {
             p.sendMessage(ChatColor.RED + "Game Full!");
         }
         else {
@@ -102,21 +100,21 @@ public class Game {
         Map<String, String> Lives = new HashMap<String, String>();
         Lives.put(ChatColor.AQUA + "Lives", "dummy");
         // base = ApiBase.get().scoreboardHandler().addObjectives(base, Lives);
-        for (Player p : players.keySet()) {
+        for (Player p : getPlayers().keySet()) {
             Scoreboard base = ApiBase.get().scoreboardHandler().getNewTeamBoard((Object[]) PlayerClass.ClassType.values());
             p.setScoreboard(base);
             p.getScoreboard().registerNewObjective("Lives", "dummy");
             ApiBase.get().scoreboardHandler().setSlot(p.getScoreboard(), "Lives", DisplaySlot.SIDEBAR);
-            p.getScoreboard().getObjective(DisplaySlot.SIDEBAR).getScore(p).setScore(players.get(p));
+            p.getScoreboard().getObjective(DisplaySlot.SIDEBAR).getScore(p).setScore(getPlayers().get(p));
         }
-        if (players.size() < 2) {
+        if (getPlayers().size() < 2) {
             msgAll("Not enough players");
             return;
         }
         inactive.clear();
         state = State.INGAME;
         
-        for (Player p : players.keySet().toArray(new Player[0])) {
+        for (Player p : getPlayers().keySet().toArray(new Player[0])) {
             if (pClasses.containsKey(p)) {
                 spawnPlayer(p);
             }
@@ -166,7 +164,7 @@ public class Game {
             // int prev = pClasses.keySet().size();
             pClasses.put(player, playerClass);
             updateTabAll();
-            if (!started && pClasses.keySet().size() >= 4 && players.size() >= 4) {
+            if (!started && pClasses.keySet().size() >= 4 && getPlayers().size() >= 4) {
                 countdown(60);
                 started = true;
             }
@@ -180,15 +178,15 @@ public class Game {
         clearPotions(p);
         
         msgAll(ChatColor.GOLD + msg);
-        int lives = players.get(p) - 1;
+        int lives = getPlayers().get(p) - 1;
         if (lives <= 0) {
             playerEliminate(p);
             
         }
         else {
-            players.put(p, lives);
+            getPlayers().put(p, lives);
             msgAll(p.getName() + " has " + lives + " lives left");
-            p.getScoreboard().getObjective("Lives").getScore(p).setScore(players.get(p));
+            p.getScoreboard().getObjective("Lives").getScore(p).setScore(getPlayers().get(p));
         }
         updateTabAll();
         
@@ -199,7 +197,7 @@ public class Game {
         started = false;
         msgAll(ChatColor.DARK_RED + p.getName() + " has been eliminated!");
         p.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
-        players.remove(p);
+        getPlayers().remove(p);
         // pClasses.remove(p);
         inactive.add(p);
         p.getInventory().clear();
@@ -210,9 +208,9 @@ public class Game {
         clearPotions(p);
         p.teleport(SettingsManager.getInstance().getLobbySpawn());
         
-        if (players.keySet().size() <= 1 && state == State.INGAME) {
+        if (getPlayers().keySet().size() <= 1 && state == State.INGAME) {
             Player pl = null;
-            for (Player pl2 : players.keySet()) {
+            for (Player pl2 : getPlayers().keySet()) {
                 pl = pl2;
             }
             Bukkit.broadcastMessage(ChatColor.BLUE + pl.getName() + " won Super Craft Bros on arena " + gameID);
@@ -236,7 +234,7 @@ public class Game {
          * for(Entity e:SettingsManager.getGameWorld(gameID).getEntities()){
          * if(arena.containsBlock(e.getLocation())){ e.remove(); } }
          */
-        for (Player p : players.keySet()) {
+        for (Player p : getPlayers().keySet()) {
             p.getInventory().clear();
             p.getInventory().setArmorContents(new ItemStack[4]);
             p.updateInventory();
@@ -248,14 +246,14 @@ public class Game {
             p.setFlying(false);
             p.setAllowFlight(false);
         }
-        players.clear();
+        getPlayers().clear();
         pClasses.clear();
         inactive.clear();
         state = State.LOBBY;
     }
     
     public void updateTabAll() {
-        for (Player p : players.keySet()) {
+        for (Player p : getPlayers().keySet()) {
             updateTab(p);
         }
     }
@@ -280,10 +278,10 @@ public class Game {
         TabAPI.setTabString(plugin, p, 7, 2, "\u00a7e\u00a7lClass");
         
         int a = 8;
-        for (Player pl : players.keySet()) {
+        for (Player pl : getPlayers().keySet()) {
             int h = convertHealth(((Damageable) pl).getHealth());
             TabAPI.setTabString(plugin, p, a, 0, pl.getName(), h);
-            TabAPI.setTabString(plugin, p, a, 1, "\u00a7a" + players.get(pl) + TabAPI.nextNull(), h);
+            TabAPI.setTabString(plugin, p, a, 1, "\u00a7a" + getPlayers().get(pl) + TabAPI.nextNull(), h);
             TabAPI.setTabString(plugin, p, a, 2, (getPlayerClass(pl) != null) ? getPlayerClass(pl).getName() + TabAPI.nextNull() : "None " + TabAPI.nextNull(), h);
             a++;
         }
@@ -324,7 +322,7 @@ public class Game {
     }
     
     public void spawnPlayer(Player p) {
-        if (players.containsKey(p)) {
+        if (getPlayers().containsKey(p)) {
             p.setAllowFlight(true);
             Random r = new Random();
             Location l = SettingsManager.getInstance().getSpawnPoint(gameID, r.nextInt(spawnCount) + 1);
@@ -372,7 +370,7 @@ public class Game {
     }
     
     public boolean isPlayerActive(Player p) {
-        return players.keySet().contains(p);
+        return getPlayers().keySet().contains(p);
     }
     
     public boolean isInQueue(Player p) {
@@ -385,7 +383,7 @@ public class Game {
     
     @SuppressWarnings("deprecation")
     public void removePlayer(Player p, boolean b) {
-        players.remove(p);
+        getPlayers().remove(p);
         p.getInventory().clear();
         p.updateInventory();
         clearPotions(p);
@@ -396,7 +394,7 @@ public class Game {
     }
     
     public void msgAll(String msg) {
-        for (Player p : players.keySet()) {
+        for (Player p : getPlayers().keySet()) {
             p.sendMessage(msg);
         }
     }
@@ -409,7 +407,7 @@ public class Game {
     }
     
     public void disable() {
-        for (Player p : players.keySet().toArray(new Player[0])) {
+        for (Player p : getPlayers().keySet().toArray(new Player[0])) {
             playerEliminate(p);
             p.sendMessage(ChatColor.RED + "Game Disabled");
         }
@@ -427,7 +425,15 @@ public class Game {
     }
     
     public Set<Player> getActivePlayers() {
-        return players.keySet();
+        return getPlayers().keySet();
+    }
+    
+    public HashMap<Player, Integer> getPlayers() {
+        return players;
+    }
+    
+    public void setPlayers(HashMap<Player, Integer> players) {
+        this.players = players;
     }
     
 }
