@@ -49,7 +49,10 @@ public class Gameboard {
     }
     
     private void reloadTeams() {
-        setup();
+        if (board.getTeams().size() <= 0) {
+            setup();
+            return;
+        }
         for (Team t : board.getTeams()) {
             t.getPlayers().clear();
         }
