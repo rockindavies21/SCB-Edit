@@ -22,10 +22,10 @@ public class Gameboard {
     public Gameboard(Game game) {
         this.game = game;
         classes = PlayerClass.ClassType.values();
-        setup();
+        setup(true);
     }
     
-    public void setup() {
+    public void setup(boolean teams) {
         if (board == null) board = Bukkit.getScoreboardManager().getNewScoreboard();
         if (board.getObjective(ChatColor.stripColor(lives)) == null) board.registerNewObjective(ChatColor.stripColor(lives), "dummy");
         board.getObjective(ChatColor.stripColor(lives)).setDisplayName(lives);
@@ -39,7 +39,7 @@ public class Gameboard {
             board.getTeam(team).setSuffix(ChatColor.RESET + "");
             board.getTeam(team).setPrefix(ChatColor.WHITE + "[" + team + "]" + ChatColor.RESET);
         }
-        reloadTeams();
+        if (teams) reloadTeams();
         reloadLives();
         loadInPlayers();
     }
@@ -53,7 +53,7 @@ public class Gameboard {
     
     private void reloadTeams() {
         if (board.getTeams().size() <= 0) {
-            setup();
+            setup(true);
             return;
         }
         for (Team t : board.getTeams()) {
