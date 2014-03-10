@@ -56,9 +56,11 @@ public class Gameboard {
             return;
         }
         for (Team t : board.getTeams()) {
-            Iterator<OfflinePlayer> iter = t.getPlayers().iterator();
-            while (iter.hasNext()) {
-                t.getPlayers().remove(iter.next());
+            if (t.getPlayers().size() >= 1) {
+                Iterator<OfflinePlayer> iter = t.getPlayers().iterator();
+                while (iter.hasNext()) {
+                    t.getPlayers().remove(iter.next());
+                }
             }
         }
         if (game.getActivePlayers().size() == 0) return;
