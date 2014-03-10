@@ -2,7 +2,6 @@ package org.mcsg.double0negative.supercraftbros;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -16,13 +15,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Scoreboard;
 import org.mcsg.double0negative.supercraftbros.classes.PlayerClass;
 import org.mcsg.double0negative.tabapi.TabAPI;
 
-import ApiBase.ApiBase;
-
+import com.gmail.Jacob6816.scb.utils.Gameboard;
 public class Game {
     
     public enum State {
@@ -35,7 +31,7 @@ public class Game {
     private int spawnCount;
     private Arena arena;
     private State state;
-    
+    private Gameboard b; 
     private HashMap<Player, Integer> players = new HashMap<Player, Integer>();
     private HashMap<Player, PlayerClass> pClasses = new HashMap<Player, PlayerClass>();
     private ArrayList<Player> inactive = new ArrayList<Player>();
@@ -43,8 +39,8 @@ public class Game {
     
     public Game(int a) {
         this.gameID = a;
+
         init();
-        
     }
     
     public void init() {
@@ -97,23 +93,14 @@ public class Game {
     }
     
     public void startGame() {
-        Map<String, String> Lives = new HashMap<String, String>();
-        Lives.put(ChatColor.AQUA + "Lives", "dummy");
-        // base = ApiBase.get().scoreboardHandler().addObjectives(base, Lives);
-        for (Player p : getPlayers().keySet()) {
-            Scoreboard base = ApiBase.get().scoreboardHandler().getNewTeamBoard((Object[]) PlayerClass.ClassType.values());
-            p.setScoreboard(base);
-            p.getScoreboard().registerNewObjective("Lives", "dummy");
-            ApiBase.get().scoreboardHandler().setSlot(p.getScoreboard(), "Lives", DisplaySlot.SIDEBAR);
-            p.getScoreboard().getObjective(DisplaySlot.SIDEBAR).getScore(p).setScore(getPlayers().get(p));
-        }
         if (getPlayers().size() < 2) {
             msgAll("Not enough players");
             return;
         }
         inactive.clear();
         state = State.INGAME;
-        
+        b = new Gameboard(this);
+    	b.setup(true);
         for (Player p : getPlayers().keySet().toArray(new Player[0])) {
             if (pClasses.containsKey(p)) {
                 spawnPlayer(p);
@@ -186,10 +173,8 @@ public class Game {
         else {
             getPlayers().put(p, lives);
             msgAll(p.getName() + " has " + lives + " lives left");
-            p.getScoreboard().getObjective("Lives").getScore(p).setScore(getPlayers().get(p));
         }
-        updateTabAll();
-        
+        b.setup(false);
     }
     
     @SuppressWarnings("deprecation")
@@ -207,6 +192,7 @@ public class Game {
         p.setFlying(false);
         clearPotions(p);
         p.teleport(SettingsManager.getInstance().getLobbySpawn());
+        p.setDisplayName(p.getName());
         
         if (getPlayers().keySet().size() <= 1 && state == State.INGAME) {
             Player pl = null;
@@ -218,6 +204,7 @@ public class Game {
         }
         TabAPI.setPriority(GameManager.getInstance().getPlugin(), p, -1);
         TabAPI.updatePlayer(p);
+        p.setDisplayName(p.getName());
         updateTabAll();
         
     }
@@ -245,11 +232,13 @@ public class Game {
             TabAPI.updatePlayer(p);
             p.setFlying(false);
             p.setAllowFlight(false);
+            p.setDisplayName(p.getName());
         }
         getPlayers().clear();
         pClasses.clear();
         inactive.clear();
         state = State.LOBBY;
+        
     }
     
     public void updateTabAll() {
