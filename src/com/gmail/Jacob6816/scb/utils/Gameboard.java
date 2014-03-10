@@ -76,7 +76,8 @@ public class Gameboard {
             if (c != null) {
                 Team t = board.getTeam(localeCaps(c.getType().toString()));
                 t.addPlayer(p);
-                t.setPrefix(game.getPlayerClass(p).getPrefix() + t.getPrefix());
+                String text = game.getPlayerClass(p).getPrefix() + t.getPrefix();
+                t.setPrefix(text.length() > 16 ? text.substring(0, 13) + "]" + r : text);
             }
         }
     }
