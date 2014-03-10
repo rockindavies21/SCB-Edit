@@ -91,9 +91,10 @@ public class EnderdragonClass extends PlayerClassBase {
     @Override
     public void PlayerSpawn() {
         player.getInventory().setContents(new ItemStack[] {});
-        player.getInventory().setArmorContents(new ItemStack[] { null, null, new ItemStack(Material.CHAINMAIL_CHESTPLATE), null });
+        player.getInventory().setArmorContents(new ItemStack[] { null, null, new ItemStack(Material.LEATHER_CHESTPLATE), null });
         player.getInventory().setItem(0, new ItemStack(Material.STONE_SWORD));
         player.getInventory().getItem(0).addEnchantment(Enchantment.DAMAGE_ALL, 3);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, 2), true);
     }
     
     @Override
@@ -102,9 +103,7 @@ public class EnderdragonClass extends PlayerClassBase {
     }
     
     @Override
-    public void PlayerDamaged() {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5, 0), true);
-    }
+    public void PlayerDamaged() {}
     
     @Override
     public void PlayerInteract(Action action) {}
