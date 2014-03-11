@@ -91,7 +91,7 @@ public class Game {
         if (l[1] == null) return false;
         if (!ChatColor.stripColor(l[0]).equalsIgnoreCase("[Join]")) return false;
         try {
-            Integer i = Integer.parseInt(l[1]);
+            Integer i = Integer.parseInt(ChatColor.stripColor(l[1]));
             return i == getID();
         }
         catch (NumberFormatException ex) {
