@@ -286,6 +286,7 @@ public class Game {
         pClasses.clear();
         inactive.clear();
         state = State.LOBBY;
+        updateLoadedSigns(Bukkit.getWorlds().get(0), true);
         
     }
     
@@ -365,6 +366,7 @@ public class Game {
         inactive.remove(p);
         p.teleport(SettingsManager.getInstance().getLobbySpawn());
         msgAll(ChatColor.RED + p.getName() + " left the game!");
+        updateLoadedSigns(p.getWorld(), true);
     }
     
     public void msgAll(String msg) {
