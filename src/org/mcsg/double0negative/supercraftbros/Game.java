@@ -7,10 +7,14 @@ import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -35,14 +39,14 @@ public class Game {
     private HashMap<Player, PlayerClassBase> pClasses = new HashMap<Player, PlayerClassBase>();
     private ArrayList<Player> inactive = new ArrayList<Player>();
     private ArrayList<Player> queue = new ArrayList<Player>();
-   /// List<Location>signLocs = new ArrayList<Location>();
+    
+    // / List<Location>signLocs = new ArrayList<Location>();
     
     public Game(int a) {
         this.gameID = a;
         
         init();
     }
-    
     
     public void init() {
         FileConfiguration s = SettingsManager.getInstance().getSystemConfig();
@@ -62,42 +66,55 @@ public class Game {
         
     }
     
-	/*@SuppressWarnings("static-access")
-	public void UpdateSigns()
-	{
-		for(Location loc:this.signLocs)
-		{
-			if(loc.getBlock() != null)
-			{
-				if(loc.getBlock().getType().equals(Material.WALL_SIGN) || loc.getBlock().getType().equals(Material.SIGN) || loc.getBlock().getType().equals(Material.SIGN_POST))
-				{
-
-					Sign sign = (Sign) loc.getBlock().getState();
-		        	int game = Integer.parseInt(sign.getLine(1));
-		        	Game g = GameManager.getInstance().getGame(game);
-					if(this.getState().equals(state.LOBBY))
-					{
-						if(sign.getLine(0).equalsIgnoreCase("[join]"));
-						sign.setLine(0, ChatColor.BLACK+"["+ChatColor.GREEN+""+ChatColor.BOLD+"Join"+ChatColor.BLACK+"]");
-					}else
-					if(this.getState().equals(state.WAITING))
-					{
-						sign.setLine(0, ChatColor.BLACK+"["+ChatColor.DARK_RED+""+ChatColor.BOLD+"Join"+ChatColor.BLACK+"]");
-					}else
-					if(this.getState().equals(state.INGAME))
-					{
-						sign.setLine(0, "["+ChatColor.DARK_RED+""+ChatColor.BOLD+"In Game"+ChatColor.BLACK+"]");
-					}
-					
-					sign.setLine(2, ChatColor.RED+""+ChatColor.BOLD+""+ "Click to Join");
-					
-					sign.setLine(3, ChatColor.YELLOW+""+ChatColor.BOLD+ g.getActivePlayers() + " /4");
-					
-					sign.update();
-				}
-			}
-		}
-	}*/
+    public void updateLoadedSigns(World start, boolean loopWorlds) {
+        if (!loopWorlds) {
+            updateSigns(start);
+            return;
+        }
+        for (World w : Bukkit.getWorlds())
+            updateSigns(w);
+    }
+    
+    private void updateSigns(World world) {
+        for (Chunk c : world.getLoadedChunks()) {
+            for (BlockState b : c.getTileEntities()) {
+                if (!(b instanceof Sign)) continue;
+                final Sign s = (Sign) b;
+                if (signIsForGame(s)) updateSign(s);
+            }
+        }
+    }
+    
+    private boolean signIsForGame(Sign s) {
+        String[] l = s.getLines();
+        if (l[0] == null) return false;
+        if (l[1] == null) return false;
+        if (!ChatColor.stripColor(l[0]).equalsIgnoreCase("[Join]")) return false;
+        try {
+            Integer i = Integer.parseInt(l[1]);
+            return i == getID();
+        }
+        catch (NumberFormatException ex) {
+            return false;
+        }
+    }
+    
+    private void updateSign(Sign s) {
+        s.setLine(0, ChatColor.GREEN + "[Join]");
+        s.setLine(1, ChatColor.AQUA + "" + getID());
+        s.setLine(2, localeCaps(state.toString()));
+        s.setLine(3, getActivePlayers().size() + " / " + 10);
+        s.update(true, true);
+    }
+    
+    private String localeCaps(String in) {
+        if (in.length() <= 1) return in.toUpperCase();
+        String t = in.toLowerCase();
+        char c = t.charAt(0);
+        String s = String.valueOf(c).toUpperCase();
+        return s + t.substring(1);
+        
+    }
     
     public void addPlayer(Player p) {
         if (state == State.LOBBY && getPlayers().size() < 10) {
@@ -106,7 +123,7 @@ public class Game {
             getPlayers().put(p, 3);
             p.setGameMode(GameMode.SURVIVAL);
             p.setHealth(20D);
-            p.setFoodLevel(20);            
+            p.setFoodLevel(20);
             p.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "Joined arena " + gameID + ". Select a class! \nHave fun!");
             msgAll(ChatColor.GREEN + p.getName() + " joined the game!" + ChatColor.AQUA + " [+]");
             p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
