@@ -128,6 +128,7 @@ public class Game {
             msgAll(ChatColor.GREEN + p.getName() + " joined the game!" + ChatColor.AQUA + " [+]");
             p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 1);
+            updateLoadedSigns(p.getWorld(), false);
         }
         else if (state == State.INGAME) {
             p.sendMessage(ChatColor.RED + "Game already started!");
@@ -160,6 +161,7 @@ public class Game {
             }
             
         }
+        updateLoadedSigns(Bukkit.getWorlds().get(0), true);
     }
     
     int count = 20;
@@ -253,7 +255,7 @@ public class Game {
         }
         p.setDisplayName(p.getName());
         p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
-        
+        updateLoadedSigns(p.getWorld(), false);
     }
     
     public void clearPotions(Player p) {

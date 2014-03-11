@@ -39,6 +39,7 @@ public class ClickSignEvent implements Listener {
             int game = Integer.parseInt(lines[1]);
             Game g = GameManager.getInstance().getGame(game);
             g.addPlayer(e.getPlayer());
+            g.updateLoadedSigns(e.getPlayer().getWorld(), false);
         }
         else if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[leave]")) {
             Player p = e.getPlayer();
