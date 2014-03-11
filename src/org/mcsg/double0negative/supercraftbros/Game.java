@@ -40,8 +40,6 @@ public class Game {
     private ArrayList<Player> inactive = new ArrayList<Player>();
     private ArrayList<Player> queue = new ArrayList<Player>();
     
-    // / List<Location>signLocs = new ArrayList<Location>();
-    
     public Game(int a) {
         this.gameID = a;
         
@@ -204,7 +202,7 @@ public class Game {
                 countdown(60);
                 started = true;
             }
-            b.setup(true);
+            b.setup(false);
         }
         else {
             player.sendMessage(ChatColor.RED + "You do not have permission for this class!");

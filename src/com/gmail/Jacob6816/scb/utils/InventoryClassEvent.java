@@ -46,8 +46,10 @@ public class InventoryClassEvent implements Listener {
         for (ClassType t : ClassType.values()) {
             if (t.localeCaps(t.toString()).equals(ChatColor.stripColor(c.getItemMeta().getDisplayName()))) {
                 Game g = GameManager.getInstance().getGamePlayer(p);
-                g.setPlayerClass(p, GameManager.getInstance().classList.get(t.toString().toLowerCase()).newInstance(p));
-                g.getPlayerClassBase(p).PlayerSpawn();
+                if (g != null) {
+                    g.setPlayerClass(p, GameManager.getInstance().classList.get(t.toString().toLowerCase()).newInstance(p));
+                    g.getPlayerClassBase(p).PlayerSpawn();
+                }
                 return;
             }
         }
