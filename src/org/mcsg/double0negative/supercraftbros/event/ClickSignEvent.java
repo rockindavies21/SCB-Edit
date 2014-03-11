@@ -17,11 +17,11 @@ import org.mcsg.double0negative.supercraftbros.Game;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 
 public class ClickSignEvent implements Listener {
-	private Location bLocation;
+    private Location bLocation;
     
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void clickHandler(PlayerInteractEvent e) {        
-        if (!(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)) return;       
+    public void clickHandler(PlayerInteractEvent e) {
+        if (!(e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK)) return;
         Block clickedBlock = e.getClickedBlock();
         if (!(clickedBlock.getType() == Material.SIGN || clickedBlock.getType() == Material.SIGN_POST || clickedBlock.getType() == Material.WALL_SIGN)) return;
         Sign thisSign = (Sign) clickedBlock.getState();
@@ -36,10 +36,13 @@ public class ClickSignEvent implements Listener {
             }
         }
         else if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[join]")) {
-            int game = Integer.parseInt(lines[1]);
-            Game g = GameManager.getInstance().getGame(game);
-            g.addPlayer(e.getPlayer());
-            g.updateLoadedSigns(e.getPlayer().getWorld(), false);
+            try {
+                int game = Integer.parseInt(ChatColor.stripColor(lines[1]));
+                Game g = GameManager.getInstance().getGame(game);
+                g.addPlayer(e.getPlayer());
+                g.updateLoadedSigns(e.getPlayer().getWorld(), false);
+            }
+            catch (Exception exception) {}
         }
         else if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[leave]")) {
             Player p = e.getPlayer();
@@ -49,19 +52,19 @@ public class ClickSignEvent implements Listener {
     
     @EventHandler
     public void onSignChange(SignChangeEvent e) {
-       	if (e.getLine(0).equalsIgnoreCase("[join]")) {
-       		bLocation = e.getBlock().getLocation();
-       		World w = bLocation.getWorld();
-       		Block b = w.getBlockAt(bLocation);
-        	int game = Integer.parseInt(e.getLine(1));
-        	Game g = GameManager.getInstance().getGame(game);
+        if (e.getLine(0).equalsIgnoreCase("[join]")) {
+            bLocation = e.getBlock().getLocation();
+            World w = bLocation.getWorld();
+            Block b = w.getBlockAt(bLocation);
+            int game = Integer.parseInt(e.getLine(1));
+            Game g = GameManager.getInstance().getGame(game);
             e.setLine(0, "§3[Join]");
             e.setLine(2, "§eClick to join");
             e.setLine(3, "§b" + g.getActivePlayers().size() + " /4");
             b.getState().update();
             
         }
-       	else if (e.getLine(0).equalsIgnoreCase("[class]")) {
+        else if (e.getLine(0).equalsIgnoreCase("[class]")) {
             e.setLine(0, "§2[Class]");
             e.setLine(2, "§bClick to pick");
             e.setLine(3, "§bA class");
@@ -76,29 +79,17 @@ public class ClickSignEvent implements Listener {
             e.setLine(2, "§aChoose a");
             e.setLine(3, "§bClasss!");
         }
-    } 
-    
-  /*  @EventHandler
-    public void blockPlaced(SignChangeEvent event) {
-        String[] a= event.getLines();
-        if (a[0].equals("[join]")) {
-            bLocation = event.getBlock().getLocation();
-        }
     }
-    public void signUpdater(Location bLocation) {
-        World w = bLocation.getWorld();
-        Block b = w.getBlockAt(bLocation);
-        if(b instanceof Sign){
-        Sign sign = (Sign) b;
-        sign.setLine(2, "Test");
-        b.getState().update();
-        }
-        }
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
-        if(cmd.getName().equalsIgnoreCase("signs")) {
-            signUpdater(bLocation);
-            return true;
-        }
-        return false;
-    } */
+    
+    /*
+     * @EventHandler public void blockPlaced(SignChangeEvent event) { String[]
+     * a= event.getLines(); if (a[0].equals("[join]")) { bLocation =
+     * event.getBlock().getLocation(); } } public void signUpdater(Location
+     * bLocation) { World w = bLocation.getWorld(); Block b =
+     * w.getBlockAt(bLocation); if(b instanceof Sign){ Sign sign = (Sign) b;
+     * sign.setLine(2, "Test"); b.getState().update(); } } public boolean
+     * onCommand(CommandSender sender, Command cmd, String label, String[]
+     * args){ if(cmd.getName().equalsIgnoreCase("signs")) {
+     * signUpdater(bLocation); return true; } return false; }
+     */
 }

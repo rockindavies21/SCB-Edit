@@ -72,7 +72,7 @@ public class Game {
             return;
         }
         for (World w : Bukkit.getWorlds())
-            updateSigns(w);
+            if (w.getLoadedChunks().length >= 1) updateSigns(w);
     }
     
     private void updateSigns(World world) {
@@ -100,10 +100,10 @@ public class Game {
     }
     
     private void updateSign(Sign s) {
-        s.setLine(0, ChatColor.GREEN + "[Join]");
+        s.setLine(0, ChatColor.DARK_GREEN + "[Join]");
         s.setLine(1, ChatColor.AQUA + "" + getID());
-        s.setLine(2, localeCaps(state.toString()));
-        s.setLine(3, getActivePlayers().size() + " / " + 10);
+        s.setLine(2, ChatColor.GREEN + localeCaps(state.toString()));
+        s.setLine(3, ChatColor.BLUE + "" + getActivePlayers().size() + " / " + 10);
         s.update(true, true);
     }
     
