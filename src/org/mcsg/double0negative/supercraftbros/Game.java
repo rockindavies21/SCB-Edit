@@ -201,8 +201,8 @@ public class Game {
             if (!started && pClasses.keySet().size() >= 4 && getPlayers().size() >= 4) {
                 countdown(60);
                 started = true;
+                b.setup(false);
             }
-            b.setup(false);
         }
         else {
             player.sendMessage(ChatColor.RED + "You do not have permission for this class!");
