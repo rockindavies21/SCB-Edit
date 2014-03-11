@@ -204,6 +204,7 @@ public class Game {
                 countdown(60);
                 started = true;
             }
+            b.setup(true);
         }
         else {
             player.sendMessage(ChatColor.RED + "You do not have permission for this class!");
