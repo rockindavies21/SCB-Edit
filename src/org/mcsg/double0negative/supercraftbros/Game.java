@@ -2,7 +2,6 @@ package org.mcsg.double0negative.supercraftbros;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -11,9 +10,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -38,7 +35,7 @@ public class Game {
     private HashMap<Player, PlayerClassBase> pClasses = new HashMap<Player, PlayerClassBase>();
     private ArrayList<Player> inactive = new ArrayList<Player>();
     private ArrayList<Player> queue = new ArrayList<Player>();
-    List<Location>signLocs = new ArrayList<Location>();
+   /// List<Location>signLocs = new ArrayList<Location>();
     
     public Game(int a) {
         this.gameID = a;
@@ -65,7 +62,7 @@ public class Game {
         
     }
     
-	@SuppressWarnings("static-access")
+	/*@SuppressWarnings("static-access")
 	public void UpdateSigns()
 	{
 		for(Location loc:this.signLocs)
@@ -80,6 +77,7 @@ public class Game {
 		        	Game g = GameManager.getInstance().getGame(game);
 					if(this.getState().equals(state.LOBBY))
 					{
+						if(sign.getLine(0).equalsIgnoreCase("[join]"));
 						sign.setLine(0, ChatColor.BLACK+"["+ChatColor.GREEN+""+ChatColor.BOLD+"Join"+ChatColor.BLACK+"]");
 					}else
 					if(this.getState().equals(state.WAITING))
@@ -99,7 +97,7 @@ public class Game {
 				}
 			}
 		}
-	}
+	}*/
     
     public void addPlayer(Player p) {
         if (state == State.LOBBY && getPlayers().size() < 10) {

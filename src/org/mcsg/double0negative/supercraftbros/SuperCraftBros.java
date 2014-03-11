@@ -36,7 +36,6 @@ public class SuperCraftBros extends JavaPlugin{
 		
 		this.getServer().getPluginManager().registerEvents(new BreakBlock(), this);
 		this.getServer().getPluginManager().registerEvents(new ClickSignEvent(), this);
-		//this.getServer().getPluginManager().registerEvents(new SignUpdateEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerClassEvents(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerDamage(), this);
 		this.getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
