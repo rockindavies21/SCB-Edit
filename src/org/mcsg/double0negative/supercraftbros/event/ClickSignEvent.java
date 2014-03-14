@@ -35,7 +35,7 @@ public class ClickSignEvent implements Listener {
                 if (g.getBoard() != null) g.getBoard().setup(true);
             }
         }
-        else if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[join]")) {
+        else if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[SCB]")) {
             try {
                 int game = Integer.parseInt(ChatColor.stripColor(lines[1]));
                 Game g = GameManager.getInstance().getGame(game);
@@ -52,13 +52,13 @@ public class ClickSignEvent implements Listener {
     
     @EventHandler
     public void onSignChange(SignChangeEvent e) {
-        if (e.getLine(0).equalsIgnoreCase("[join]")) {
+        if (e.getLine(0).equalsIgnoreCase("[scb]")) {
             bLocation = e.getBlock().getLocation();
             World w = bLocation.getWorld();
             Block b = w.getBlockAt(bLocation);
             int game = Integer.parseInt(e.getLine(1));
             Game g = GameManager.getInstance().getGame(game);
-            e.setLine(0, "§3[Join]");
+            e.setLine(0, "§3[SCB]");
             e.setLine(2, "§eClick to join");
             e.setLine(3, "§b" + g.getActivePlayers().size() + " /4");
             b.getState().update();

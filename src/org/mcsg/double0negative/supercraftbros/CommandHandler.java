@@ -65,6 +65,7 @@ public class CommandHandler implements CommandExecutor
 		if(cmd.equalsIgnoreCase("scb")){ 
 			if(args == null || args.length < 1){
 				player.sendMessage(ChatColor.GOLD +""+ ChatColor.BOLD +"Super Craft Bros - Double0negative"+ChatColor.RESET+  ChatColor.YELLOW +" Version: "+ pdfFile.getVersion() );
+				player.sendMessage(ChatColor.AQUA +""+ ChatColor.UNDERLINE + "Modified by: JRL1004, Mike1665");
 				player.sendMessage(ChatColor.GOLD +"Type /scb help for help" );
 
 				return true;
@@ -103,7 +104,7 @@ public class CommandHandler implements CommandExecutor
 			p.sendMessage(ChatColor.AQUA + "Set the game spawnpoints - /scb setspawn next [1-8 Spawns]");
 			p.sendMessage(ChatColor.AQUA + "To leave - /scb leave");
 			p.sendMessage(ChatColor.AQUA + "To force start game - /scb start");
-			p.sendMessage(ChatColor.AQUA + "Set the game spawnpoints - /acb setspawn next [1-8 Spawns]");
+			p.sendMessage(ChatColor.AQUA + "Enable/Disable arenas - /scb disable/enable {id}");
 			
 		}
 	}

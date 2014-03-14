@@ -48,7 +48,7 @@ public class InventoryClassEvent implements Listener {
                 Game g = GameManager.getInstance().getGamePlayer(p);
                 if (g != null) {
                     g.setPlayerClass(p, GameManager.getInstance().classList.get(t.toString().toLowerCase()).newInstance(p));
-                    g.getPlayerClassBase(p).PlayerSpawn();
+                    if(g.getPlayerClassBase(p) != null) g.getPlayerClassBase(p).PlayerSpawn();
                 }
                 return;
             }

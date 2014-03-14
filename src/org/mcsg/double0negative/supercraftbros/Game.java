@@ -21,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.classes.PlayerClassBase;
+import org.mcsg.double0negative.tabapi.TabAPI;
 
 import com.gmail.Jacob6816.scb.utils.Gameboard;
 
@@ -87,7 +88,7 @@ public class Game {
         String[] l = s.getLines();
         if (l[0] == null) return false;
         if (l[1] == null) return false;
-        if (!ChatColor.stripColor(l[0]).equalsIgnoreCase("[Join]")) return false;
+        if (!ChatColor.stripColor(l[0]).equalsIgnoreCase("[scb]")) return false;
         try {
             Integer i = Integer.parseInt(ChatColor.stripColor(l[1]));
             return i == getID();
@@ -98,7 +99,7 @@ public class Game {
     }
     
     private void updateSign(Sign s) {
-        s.setLine(0, ChatColor.DARK_GREEN + "[Join]");
+        s.setLine(0, ChatColor.DARK_GREEN + "[SCB]");
         s.setLine(1, ChatColor.AQUA + "" + getID());
         s.setLine(2, ChatColor.GREEN + localeCaps(state.toString()));
         s.setLine(3, ChatColor.BLUE + "" + getActivePlayers().size() + " / " + 10);
@@ -289,6 +290,70 @@ public class Game {
         
     }
     
+	/*public void updateTabAll(){
+		for(Player p: players.keySet()){
+			updateTab(p);
+		}
+	}
+
+	public void updateTab(Player p){
+		Plugin plugin = GameManager.getInstance().getPlugin();
+		TabAPI.setTabString(plugin, p, 0, 0, "        \u00a7lSuper");
+		TabAPI.setTabString(plugin, p, 0, 1, "   \u00a7lCraft");
+		TabAPI.setTabString(plugin, p, 0, 2, "  \u00a7lBros");
+		TabAPI.setTabString(plugin, p, 1, 1, "   \u00a7lBrawl");
+		TabAPI.setTabString(plugin, p, 2, 0, " \u00a76\u00a7l----------");
+		TabAPI.setTabString(plugin, p, 2, 1, "\u00a7e\u00a7l----------");
+		TabAPI.setTabString(plugin, p, 2, 2, "\u00a76\u00a7l---------- ");
+
+		TabAPI.setTabString(plugin, p, 4, 0, "\u00a7lArena");
+		TabAPI.setTabString(plugin, p, 4, 1, gameID+TabAPI.nextNull());
+		TabAPI.setTabString(plugin, p, 5, 0, "\u00a7lClass");
+		TabAPI.setTabString(plugin, p, 5, 1, (getPlayerClass(p) != null)? getPlayerClass(p).getName()+TabAPI.nextNull():"None "+TabAPI.nextNull());
+
+		TabAPI.setTabString(plugin, p, 7, 0, "\u00a7e\u00a7lPlayer");
+		TabAPI.setTabString(plugin, p, 7, 1, "\u00a7e\u00a7lLives");
+		TabAPI.setTabString(plugin, p, 7, 2, "\u00a7e\u00a7lClass");
+
+		int a = 8;
+		for(Player pl:players.keySet()){
+			int h = convertHealth(pl.getHealth());
+			TabAPI.setTabString(plugin, p, a, 0, pl.getName(), h);
+			TabAPI.setTabString(plugin, p, a, 1, "\u00a7a"+players.get(pl)+TabAPI.nextNull(), h);
+			TabAPI.setTabString(plugin, p, a, 2, (getPlayerClass(pl) != null)? getPlayerClass(pl).getName()+TabAPI.nextNull():"None "+TabAPI.nextNull(),h );
+			a++;
+		}
+
+		if(state == State.INGAME){
+			for(Player pl:inactive){
+				TabAPI.setTabString(plugin, p, a, 0, pl.getName(), -1);
+				TabAPI.setTabString(plugin, p, a, 1, "\u00a7c0"+TabAPI.nextNull(), -1);
+				TabAPI.setTabString(plugin, p, a, 2, (getPlayerClass(pl) != null)? getPlayerClass(pl).getName()+TabAPI.nextNull():"None "+TabAPI.nextNull(), -1);
+
+				a++;
+			}
+		}
+		TabAPI.updatePlayer(p);
+
+	}
+	private int convertHealth(double h){
+		if(h > 17){
+			return 1;
+		}else if(h >14){
+			return 151;
+		}else if(h > 10){
+			return 301;
+		}else if(h > 5){
+			return 601;
+		}else if(h > 2){
+			return 1001;
+		}
+		else{
+			return -1;
+		}
+
+	}
+    */
     /*
      * private int convertHealth(double h) { if (h > 17) { return 1; } else if
      * (h > 14) { return 151; } else if (h > 10) { return 301; } else if (h > 5)
@@ -406,6 +471,10 @@ public class Game {
     public HashMap<Player, Integer> getPlayers() {
         return players;
     }
+    
+	public PlayerClassBase getPlayerClass(Player p) {
+		return pClasses.get(p);
+	}
     
     public void setPlayers(HashMap<Player, Integer> players) {
         this.players = players;
