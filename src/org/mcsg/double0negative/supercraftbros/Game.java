@@ -21,9 +21,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.classes.PlayerClassBase;
-import org.mcsg.double0negative.tabapi.TabAPI;
 
 import com.gmail.Jacob6816.scb.utils.Gameboard;
+import com.gmail.Jacob6816.scb.utils.Lobbyboard;
 
 public class Game {
     
@@ -36,10 +36,10 @@ public class Game {
     private Arena arena;
     private State state;
     private Gameboard b;
+    private Lobbyboard l;
     private HashMap<Player, Integer> players = new HashMap<Player, Integer>();
     private HashMap<Player, PlayerClassBase> pClasses = new HashMap<Player, PlayerClassBase>();
     private ArrayList<Player> inactive = new ArrayList<Player>();
-    private ArrayList<Player> queue = new ArrayList<Player>();
     
     public Game(int a) {
         this.gameID = a;
@@ -58,11 +58,10 @@ public class Game {
         Location max = new Location(SettingsManager.getGameWorld(gameID), Math.max(x, x1), Math.max(y, y1), Math.max(z, z1));
         Location min = new Location(SettingsManager.getGameWorld(gameID), Math.min(x, x1), Math.min(y, y1), Math.min(z, z1));
         arena = new Arena(min, max);
-        
+        l = new Lobbyboard(this);
         state = State.LOBBY;
-        
+        l.setup(true);
         spawnCount = SettingsManager.getInstance().getSpawnCount(gameID);
-        
     }
     
     public void updateLoadedSigns(World start, boolean loopWorlds) {
@@ -91,7 +90,7 @@ public class Game {
         if (!ChatColor.stripColor(l[0]).equalsIgnoreCase("[scb]")) return false;
         try {
             Integer i = Integer.parseInt(ChatColor.stripColor(l[1]));
-            return i == getID();
+            return i.intValue() == getID();
         }
         catch (NumberFormatException ex) {
             return false;
@@ -112,13 +111,11 @@ public class Game {
         char c = t.charAt(0);
         String s = String.valueOf(c).toUpperCase();
         return s + t.substring(1);
-        
     }
     
     public void addPlayer(Player p) {
         if (state == State.LOBBY && getPlayers().size() < 10) {
             p.teleport(SettingsManager.getInstance().getGameLobbySpawn(gameID));
-            
             getPlayers().put(p, 3);
             p.setGameMode(GameMode.SURVIVAL);
             p.setHealth(20D);
@@ -127,7 +124,11 @@ public class Game {
             msgAll(ChatColor.GREEN + p.getName() + " joined the game!" + ChatColor.AQUA + " [+]");
             p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 1);
-            updateLoadedSigns(p.getWorld(), false);
+            if (!started) {
+                l.setup(true);
+                l.updateScores();
+            }
+            updateLoadedSigns(p.getWorld(), Bukkit.getWorlds().size() >= 5);
         }
         else if (state == State.INGAME) {
             p.sendMessage(ChatColor.RED + "Game already started!");
@@ -138,7 +139,7 @@ public class Game {
         else {
             p.sendMessage(ChatColor.RED + "Cannot join game!");
         }
-        
+        updateLoadedSigns(p.getWorld(), false);
     }
     
     public void startGame() {
@@ -202,17 +203,17 @@ public class Game {
             if (!started && pClasses.keySet().size() >= 4 && getPlayers().size() >= 4) {
                 countdown(60);
                 started = true;
-                b.setup(false);
+                b.setup(true);
             }
         }
         else {
             player.sendMessage(ChatColor.RED + "You do not have permission for this class!");
         }
+        updateLoadedSigns(player.getWorld(), false);
     }
     
     public void killPlayer(Player p, String msg) {
         clearPotions(p);
-        
         msgAll(ChatColor.GOLD + msg);
         int lives = getPlayers().get(p) - 1;
         if (lives <= 0) {
@@ -222,8 +223,8 @@ public class Game {
         else {
             getPlayers().put(p, lives);
             msgAll(p.getName() + " has " + lives + " lives left");
+            b.setup(false);
         }
-        b.setup(false);
     }
     
     @SuppressWarnings("deprecation")
@@ -242,8 +243,9 @@ public class Game {
         p.teleport(SettingsManager.getInstance().getLobbySpawn());
         p.setDisplayName(p.getName());
         if (started) {
-            b.hidePlayer(p);
             b.setup(true);
+            b.setAsDead(p);
+            updateLoadedSigns(p.getWorld(), false);
         }
         if (getPlayers().keySet().size() <= 1 && state == State.INGAME) {
             Player pl = null;
@@ -266,10 +268,6 @@ public class Game {
     
     @SuppressWarnings("deprecation")
     public void gameEnd() {
-        /*
-         * for(Entity e:SettingsManager.getGameWorld(gameID).getEntities()){
-         * if(arena.containsBlock(e.getLocation())){ e.remove(); } }
-         */
         for (Player p : getPlayers().keySet()) {
             p.getInventory().clear();
             p.getInventory().setArmorContents(new ItemStack[4]);
@@ -287,78 +285,7 @@ public class Game {
         inactive.clear();
         state = State.LOBBY;
         updateLoadedSigns(Bukkit.getWorlds().get(0), true);
-        
     }
-    
-	/*public void updateTabAll(){
-		for(Player p: players.keySet()){
-			updateTab(p);
-		}
-	}
-
-	public void updateTab(Player p){
-		Plugin plugin = GameManager.getInstance().getPlugin();
-		TabAPI.setTabString(plugin, p, 0, 0, "        \u00a7lSuper");
-		TabAPI.setTabString(plugin, p, 0, 1, "   \u00a7lCraft");
-		TabAPI.setTabString(plugin, p, 0, 2, "  \u00a7lBros");
-		TabAPI.setTabString(plugin, p, 1, 1, "   \u00a7lBrawl");
-		TabAPI.setTabString(plugin, p, 2, 0, " \u00a76\u00a7l----------");
-		TabAPI.setTabString(plugin, p, 2, 1, "\u00a7e\u00a7l----------");
-		TabAPI.setTabString(plugin, p, 2, 2, "\u00a76\u00a7l---------- ");
-
-		TabAPI.setTabString(plugin, p, 4, 0, "\u00a7lArena");
-		TabAPI.setTabString(plugin, p, 4, 1, gameID+TabAPI.nextNull());
-		TabAPI.setTabString(plugin, p, 5, 0, "\u00a7lClass");
-		TabAPI.setTabString(plugin, p, 5, 1, (getPlayerClass(p) != null)? getPlayerClass(p).getName()+TabAPI.nextNull():"None "+TabAPI.nextNull());
-
-		TabAPI.setTabString(plugin, p, 7, 0, "\u00a7e\u00a7lPlayer");
-		TabAPI.setTabString(plugin, p, 7, 1, "\u00a7e\u00a7lLives");
-		TabAPI.setTabString(plugin, p, 7, 2, "\u00a7e\u00a7lClass");
-
-		int a = 8;
-		for(Player pl:players.keySet()){
-			int h = convertHealth(pl.getHealth());
-			TabAPI.setTabString(plugin, p, a, 0, pl.getName(), h);
-			TabAPI.setTabString(plugin, p, a, 1, "\u00a7a"+players.get(pl)+TabAPI.nextNull(), h);
-			TabAPI.setTabString(plugin, p, a, 2, (getPlayerClass(pl) != null)? getPlayerClass(pl).getName()+TabAPI.nextNull():"None "+TabAPI.nextNull(),h );
-			a++;
-		}
-
-		if(state == State.INGAME){
-			for(Player pl:inactive){
-				TabAPI.setTabString(plugin, p, a, 0, pl.getName(), -1);
-				TabAPI.setTabString(plugin, p, a, 1, "\u00a7c0"+TabAPI.nextNull(), -1);
-				TabAPI.setTabString(plugin, p, a, 2, (getPlayerClass(pl) != null)? getPlayerClass(pl).getName()+TabAPI.nextNull():"None "+TabAPI.nextNull(), -1);
-
-				a++;
-			}
-		}
-		TabAPI.updatePlayer(p);
-
-	}
-	private int convertHealth(double h){
-		if(h > 17){
-			return 1;
-		}else if(h >14){
-			return 151;
-		}else if(h > 10){
-			return 301;
-		}else if(h > 5){
-			return 601;
-		}else if(h > 2){
-			return 1001;
-		}
-		else{
-			return -1;
-		}
-
-	}
-    */
-    /*
-     * private int convertHealth(double h) { if (h > 17) { return 1; } else if
-     * (h > 14) { return 151; } else if (h > 10) { return 301; } else if (h > 5)
-     * { return 601; } else if (h > 2) { return 1001; } else { return -1; } }
-     */
     
     public void spawnPlayer(Player p) {
         if (getPlayers().containsKey(p)) {
@@ -368,7 +295,6 @@ public class Game {
             p.teleport(getSafePoint(l));
             getPlayerClassBase(p).PlayerSpawn();
         }
-        
     }
     
     @SuppressWarnings("deprecation")
@@ -410,14 +336,6 @@ public class Game {
     
     public boolean isPlayerActive(Player p) {
         return getPlayers().keySet().contains(p);
-    }
-    
-    public boolean isInQueue(Player p) {
-        return queue.contains(p);
-    }
-    
-    public void removeFromQueue(Player p) {
-        queue.remove(p);
     }
     
     @SuppressWarnings("deprecation")
@@ -472,9 +390,9 @@ public class Game {
         return players;
     }
     
-	public PlayerClassBase getPlayerClass(Player p) {
-		return pClasses.get(p);
-	}
+    public PlayerClassBase getPlayerClass(Player p) {
+        return pClasses.get(p);
+    }
     
     public void setPlayers(HashMap<Player, Integer> players) {
         this.players = players;
@@ -483,5 +401,4 @@ public class Game {
     public Gameboard getBoard() {
         return b;
     }
-    
 }

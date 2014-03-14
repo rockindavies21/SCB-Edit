@@ -118,21 +118,11 @@ public class GameManager {
         return false;
     }
     
-    public void removeFromOtherQueues(Player p, int id) {
-        for (Game g : getGames()) {
-            if (g.isInQueue(p) && g.getID() != id) {
-                g.removeFromQueue(p);
-                p.sendMessage(ChatColor.GREEN + "Removed from the queue in arena " + g.getID());
-            }
-        }
-    }
-    
     public int getGameCount() {
         return games.size();
     }
     
     public Game getGame(int a) {
-        // int t = gamemap.get(a);
         for (Game g : games) {
             if (g.getID() == a) { return g; }
         }

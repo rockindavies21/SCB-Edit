@@ -46,6 +46,7 @@ public class Gameboard {
             board.getTeam(team).setSuffix(ChatColor.RESET + "");
             board.getTeam(team).setPrefix(getPrefix(t));
         }
+        registerDeadTeam();
         if (teams) reloadTeams();
         reloadLives();
         loadInPlayers();
@@ -113,5 +114,31 @@ public class Gameboard {
     private String getPrefix(ClassType t) {
         String s = t.getColor() + "[" + localeCaps(t.toString()) + "]" + r;
         return s.length() > 16 ? s.substring(0, 13) + "]" + r : s;
+    }
+    
+    public void setAsDead(Player p) {
+        clearFromTeams(p);
+        board.getTeam("Dead").getPlayers().add(p);
+        board.getObjective(DisplaySlot.SIDEBAR).getScore(p).setScore(0);
+    }
+    
+    private boolean clearFromTeams(Player player) {
+        if (board == null || board.getTeams().size() == 0) setup(true);
+        for (Team t : board.getTeams()) {
+            if (t.getPlayers().contains(player)) {
+                t.getPlayers().remove(player);
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private void registerDeadTeam() {
+        board.registerNewTeam("Dead");
+        Team t = board.getTeam("Dead");
+        t.setAllowFriendlyFire(false);
+        t.setCanSeeFriendlyInvisibles(true);
+        t.setPrefix(ChatColor.RED + "[DEAD]" + ChatColor.RESET);
+        t.setSuffix(ChatColor.RESET + "");
     }
 }
