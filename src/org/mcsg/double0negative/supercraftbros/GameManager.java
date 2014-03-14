@@ -25,10 +25,12 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
 public class GameManager {
-    
+    public final int maxPlayers = 10;
+    public final int minPlayers = 2;
+    public final int lifeCount = 3;
     private SuperCraftBros p;
     
-    static GameManager instance = new GameManager();
+    private static GameManager instance = new GameManager();
     private ArrayList<Game> games = new ArrayList<Game>();
     public HashMap<String, PlayerClassBase> classList = new HashMap<String, PlayerClassBase>();
     

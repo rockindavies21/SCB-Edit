@@ -101,7 +101,7 @@ public class Game {
         s.setLine(0, ChatColor.DARK_GREEN + "[SCB]");
         s.setLine(1, ChatColor.AQUA + "" + getID());
         s.setLine(2, ChatColor.GREEN + localeCaps(state.toString()));
-        s.setLine(3, ChatColor.BLUE + "" + getActivePlayers().size() + " / " + 10);
+        s.setLine(3, ChatColor.BLUE + "" + getActivePlayers().size() + " / " + GameManager.getInstance().maxPlayers);
         s.update(true, true);
     }
     
@@ -114,9 +114,9 @@ public class Game {
     }
     
     public void addPlayer(Player p) {
-        if (state == State.LOBBY && getPlayers().size() < 10) {
+        if (state == State.LOBBY && getPlayers().size() < GameManager.getInstance().maxPlayers) {
             p.teleport(SettingsManager.getInstance().getGameLobbySpawn(gameID));
-            getPlayers().put(p, 3);
+            getPlayers().put(p, GameManager.getInstance().lifeCount);
             p.setGameMode(GameMode.SURVIVAL);
             p.setHealth(20D);
             p.setFoodLevel(20);
@@ -143,7 +143,7 @@ public class Game {
     }
     
     public void startGame() {
-        if (getPlayers().size() < 2) {
+        if (getPlayers().size() < GameManager.getInstance().minPlayers) {
             msgAll("Not enough players");
             return;
         }
