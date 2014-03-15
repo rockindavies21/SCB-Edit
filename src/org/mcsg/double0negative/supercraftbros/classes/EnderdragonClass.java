@@ -60,7 +60,6 @@ public class EnderdragonClass extends PlayerClassBase {
             canFly = true;
             fly = 0;
         }
-        System.out.println(fly);
     }
     
     int stid = 0;
