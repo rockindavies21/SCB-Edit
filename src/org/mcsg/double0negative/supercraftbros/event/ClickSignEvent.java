@@ -26,16 +26,7 @@ public class ClickSignEvent implements Listener {
         if (!(clickedBlock.getType() == Material.SIGN || clickedBlock.getType() == Material.SIGN_POST || clickedBlock.getType() == Material.WALL_SIGN)) return;
         Sign thisSign = (Sign) clickedBlock.getState();
         String[] lines = thisSign.getLines();
-        if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[class]")) {
-            String cl = lines[1];
-            Game g = GameManager.getInstance().getGame(GameManager.getInstance().getPlayerGameId(e.getPlayer()));
-            if (g != null) {
-                g.setPlayerClass(e.getPlayer(), GameManager.getInstance().classList.get(cl.toLowerCase()).newInstance(e.getPlayer()));
-                g.getPlayerClassBase(e.getPlayer()).PlayerSpawn();
-                if (g.getBoard() != null) g.getBoard().setup(true);
-            }
-        }
-        else if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[SCB]")) {
+        if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[SCB]")) {
             try {
                 int game = Integer.parseInt(ChatColor.stripColor(lines[1]));
                 Game g = GameManager.getInstance().getGame(game);
@@ -63,6 +54,7 @@ public class ClickSignEvent implements Listener {
                 e.setLine(2, "§eClick to join");
                 e.setLine(3, "§b" + g.getActivePlayers().size() + " /4");
                 b.getState().update();
+                g.updateLoadedSigns(w, false);
             }
             else {
                 b.breakNaturally();
@@ -86,16 +78,4 @@ public class ClickSignEvent implements Listener {
             e.setLine(3, "§bClasss!");
         }
     }
-    
-    /*
-     * @EventHandler public void blockPlaced(SignChangeEvent event) { String[]
-     * a= event.getLines(); if (a[0].equals("[join]")) { bLocation =
-     * event.getBlock().getLocation(); } } public void signUpdater(Location
-     * bLocation) { World w = bLocation.getWorld(); Block b =
-     * w.getBlockAt(bLocation); if(b instanceof Sign){ Sign sign = (Sign) b;
-     * sign.setLine(2, "Test"); b.getState().update(); } } public boolean
-     * onCommand(CommandSender sender, Command cmd, String label, String[]
-     * args){ if(cmd.getName().equalsIgnoreCase("signs")) {
-     * signUpdater(bLocation); return true; } return false; }
-     */
 }
