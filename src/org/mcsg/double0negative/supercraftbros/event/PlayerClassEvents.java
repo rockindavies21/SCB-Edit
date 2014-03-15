@@ -39,7 +39,6 @@ public class PlayerClassEvents implements Listener {
     
     @EventHandler(priority = EventPriority.LOWEST)
     public void blockFire(BlockIgniteEvent e) {
-        System.out.println("lighing");
         final Block b = e.getBlock();
         Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable() {
             @SuppressWarnings("deprecation")
@@ -122,7 +121,6 @@ public class PlayerClassEvents implements Listener {
         e.blockList().clear();
         Location l = e.getLocation();
         if (e.getEntity() instanceof Fireball) {
-            System.out.println("cancel");
             e.setCancelled(true);
             l.getWorld().createExplosion(l, 4);
         }
