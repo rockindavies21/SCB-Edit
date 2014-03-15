@@ -27,7 +27,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.mcsg.double0negative.supercraftbros.Game;
 import org.mcsg.double0negative.supercraftbros.Game.State;
 import org.mcsg.double0negative.supercraftbros.GameManager;
-import org.mcsg.double0negative.supercraftbros.SettingsManager;
 
 public class PlayerClassEvents implements Listener {
     private PacketPlayInClientCommand respawn = new PacketPlayInClientCommand(EnumClientCommand.PERFORM_RESPAWN);
@@ -163,12 +162,9 @@ public class PlayerClassEvents implements Listener {
         Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable() {
             public void run() {
                 int id = gm.getPlayerGameId(p);
-                if (id != -1) {
+                if (id >= 0) {
                     gm.getGame(id).spawnPlayer(p);
                     gm.getPlayerClass(p).PlayerSpawn();
-                }
-                else {
-                    p.teleport(SettingsManager.getInstance().getLobbySpawn());
                 }
             }
         }, 1);
