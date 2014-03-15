@@ -83,7 +83,7 @@ public class Game {
         }
     }
     
-    private boolean signIsForGame(Sign s) {
+    public boolean signIsForGame(Sign s) {
         String[] l = s.getLines();
         if (l[0] == null) return false;
         if (l[1] == null) return false;
@@ -97,7 +97,7 @@ public class Game {
         }
     }
     
-    private void updateSign(Sign s) {
+    public void updateSign(Sign s) {
         s.setLine(0, ChatColor.DARK_GREEN + "[SCB]");
         s.setLine(1, ChatColor.AQUA + "" + getID());
         s.setLine(2, ChatColor.GREEN + localeCaps(state.toString()));

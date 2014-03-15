@@ -3,8 +3,13 @@ package org.mcsg.double0negative.supercraftbros;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Chunk;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -238,6 +243,24 @@ public class GameManager {
     
     public Game getGamePlayer(Player player) {
         return getGame(getPlayerGameId(player));
+    }
+    
+    @Deprecated
+    public void updateAllSigns() {
+        if (getGames().size() == 0) return;
+        for (World w : Bukkit.getWorlds()) {
+            if (w.getLoadedChunks().length == 0) continue;
+            for (Chunk c : w.getLoadedChunks()) {
+                if (c.getTileEntities().length == 0) continue;
+                for (BlockState b : c.getTileEntities()) {
+                    if (!(b instanceof Sign)) continue;
+                    Sign s = (Sign) b;
+                    for (Game g : getGames()) {
+                        if (g.signIsForGame(s)) g.updateSign(s);
+                    }
+                }
+            }
+        }
     }
     
 }

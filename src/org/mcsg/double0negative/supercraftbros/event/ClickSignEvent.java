@@ -27,11 +27,15 @@ public class ClickSignEvent implements Listener {
         Sign thisSign = (Sign) clickedBlock.getState();
         String[] lines = thisSign.getLines();
         if (ChatColor.stripColor(lines[0]).equalsIgnoreCase("[SCB]")) {
+            if (GameManager.getInstance().getPlayerGameId(e.getPlayer()) != -1) {
+                e.getPlayer().sendMessage(ChatColor.RED + "You are already in a game.");
+                return;
+            }
             try {
                 int game = Integer.parseInt(ChatColor.stripColor(lines[1]));
                 Game g = GameManager.getInstance().getGame(game);
                 g.addPlayer(e.getPlayer());
-                g.updateLoadedSigns(e.getPlayer().getWorld(), false);
+                g.updateLoadedSigns(e.getPlayer().getWorld(), true);
             }
             catch (Exception exception) {}
         }
