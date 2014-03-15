@@ -33,8 +33,6 @@ public class SettingsManager {
     
     public void setup(Plugin plug) {
         p = plug;
-        p.getConfig().options().copyDefaults(true);
-        p.saveDefaultConfig();
         
         f = new File(p.getDataFolder(), "spawns.yml");
         f2 = new File(p.getDataFolder(), "system.yml");
@@ -55,14 +53,6 @@ public class SettingsManager {
         
     }
     
-    public void set(String arg0, Object arg1) {
-        p.getConfig().set(arg0, arg1);
-    }
-    
-    public FileConfiguration getConfig() {
-        return p.getConfig();
-    }
-    
     public FileConfiguration getSystemConfig() {
         return system;
     }
@@ -71,15 +61,9 @@ public class SettingsManager {
         return spawns;
     }
     
-    public void saveConfig() {
-        // p.saveConfig();
-    }
-    
     public static World getGameWorld(int game) {
-        if (SettingsManager.getInstance().getSystemConfig().getString("system.arenas." + game + ".world") == null) {
-            // LobbyManager.getInstance().error(true);
-            return null;
-            
+        if (SettingsManager.getInstance().getSystemConfig().getString("system.arenas." + game + ".world") == null) { return null;
+        
         }
         return p.getServer().getWorld(SettingsManager.getInstance().getSystemConfig().getString("system.arenas." + game + ".world"));
     }
@@ -159,11 +143,6 @@ public class SettingsManager {
         }
         GameManager.getInstance().getGame(gameid).addSpawn();
         
-    }
-    
-    public static String getSqlPrefix() {
-        
-        return getInstance().getConfig().getString("sql.prefix");
     }
     
     public void loadFile(String file) {

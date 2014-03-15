@@ -1,5 +1,6 @@
 package org.mcsg.double0negative.supercraftbros;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
@@ -16,10 +17,12 @@ import org.mcsg.double0negative.supercraftbros.event.PlayerLeave;
 import org.mcsg.double0negative.supercraftbros.event.PlayerTeleport;
 import org.mcstats.Metrics;
 
+import com.gmail.Jacob6816.scb.utils.ConfigurationReader;
 import com.gmail.Jacob6816.scb.utils.InventoryClassEvent;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 
 public class SuperCraftBros extends JavaPlugin {
+    private ConfigurationReader reader = null;
     
     public void onEnable() {
         try {
@@ -39,6 +42,10 @@ public class SuperCraftBros extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new InventoryEvents(), this);
         this.getServer().getPluginManager().registerEvents(new InventoryClassEvent(), this);
         this.getCommand("scb").setExecutor(new CommandHandler(this));
+        
+        File conf = new File(getDataFolder(), "config.yml");
+        if (!conf.exists()) saveDefaultConfig();
+        if (getConfig().getBoolean("useConfig")) reader = new ConfigurationReader(this, getConfig());
         
         new BukkitRunnable() {
             public void run() {
@@ -63,5 +70,9 @@ public class SuperCraftBros extends JavaPlugin {
         else {
             return null;
         }
+    }
+    
+    public boolean useReader() {
+        return reader != null;
     }
 }

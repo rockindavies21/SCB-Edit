@@ -30,9 +30,9 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
 public class GameManager {
-    public final int maxPlayers = 10;
-    public final int minPlayers = 2;
-    public final int lifeCount = 3;
+    public int maxPlayers = 10;
+    public int minPlayers = 2;
+    public int lifeCount = 3;
     private SuperCraftBros p;
     
     private static GameManager instance = new GameManager();
@@ -166,6 +166,7 @@ public class GameManager {
         Game g = getGame(getPlayerGameId(p));
         return g.getPlayerClassBase(p);
     }
+    
     public WorldEditPlugin getWorldEdit() {
         return p.getWorldEdit();
     }
@@ -243,4 +244,22 @@ public class GameManager {
         }
     }
     
+    /*
+     * Configuration controls
+     */
+    
+    public boolean setMaxLives(int lives) {
+        this.lifeCount = lives;
+        return lives == lifeCount;
+    }
+    
+    public boolean setStartCount(int startCount) {
+        this.minPlayers = startCount;
+        return minPlayers == startCount;
+    }
+    
+    public boolean setMaxPlayers(int max) {
+        this.maxPlayers = max;
+        return max == maxPlayers;
+    }
 }
