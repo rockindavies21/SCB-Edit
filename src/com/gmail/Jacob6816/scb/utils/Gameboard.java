@@ -134,7 +134,7 @@ public class Gameboard {
     }
     
     private void registerDeadTeam() {
-        board.registerNewTeam("Dead");
+        if (board.getTeam("Dead") == null) board.registerNewTeam("Dead");
         Team t = board.getTeam("Dead");
         t.setAllowFriendlyFire(false);
         t.setCanSeeFriendlyInvisibles(true);

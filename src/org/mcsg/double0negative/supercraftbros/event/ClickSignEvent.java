@@ -58,10 +58,16 @@ public class ClickSignEvent implements Listener {
             Block b = w.getBlockAt(bLocation);
             int game = Integer.parseInt(e.getLine(1));
             Game g = GameManager.getInstance().getGame(game);
-            e.setLine(0, "§3[SCB]");
-            e.setLine(2, "§eClick to join");
-            e.setLine(3, "§b" + g.getActivePlayers().size() + " /4");
-            b.getState().update();
+            if (g != null) {
+                e.setLine(0, "§3[SCB]");
+                e.setLine(2, "§eClick to join");
+                e.setLine(3, "§b" + g.getActivePlayers().size() + " /4");
+                b.getState().update();
+            }
+            else {
+                b.breakNaturally();
+                e.getPlayer().sendMessage(ChatColor.RED + "Arena does not exist.");
+            }
             
         }
         else if (e.getLine(0).equalsIgnoreCase("[class]")) {
