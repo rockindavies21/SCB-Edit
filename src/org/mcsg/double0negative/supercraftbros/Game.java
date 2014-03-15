@@ -24,6 +24,7 @@ import org.mcsg.double0negative.supercraftbros.classes.PlayerClassBase;
 
 import com.gmail.Jacob6816.scb.utils.Gameboard;
 import com.gmail.Jacob6816.scb.utils.Lobbyboard;
+import com.gmail.Jacob6816.scb.utils.Permissions;
 
 public class Game {
     
@@ -196,7 +197,8 @@ public class Game {
     boolean started = false;
     
     public void setPlayerClass(Player player, PlayerClassBase playerClass) {
-        if (player.hasPermission("scb.class." + playerClass.getName())) {
+        Permissions perms = new Permissions(player);
+        if (perms.canUseClass(playerClass.getName())) {
             clearPotions(player);
             player.sendMessage(ChatColor.GREEN + "You choose " + playerClass.getName() + "!");
             pClasses.put(player, playerClass);

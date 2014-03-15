@@ -4,12 +4,14 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.mcsg.double0negative.supercraftbros.GameManager;
 
+import com.gmail.Jacob6816.scb.utils.Permissions;
+
 public class EnableCommand implements SubCommand{
 
 	@Override
 	public boolean onCommand(Player player, String[] args) {
-		if(player.isOp()){
-			
+	    Permissions perms = new Permissions(player);
+		if(perms.canEnableArena()){
 			if(args.length == 1){
 				int i = Integer.parseInt(args[0]);
 				GameManager.getInstance().getGame(i).enable();
