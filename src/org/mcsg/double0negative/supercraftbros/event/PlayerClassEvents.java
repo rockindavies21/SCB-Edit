@@ -65,7 +65,6 @@ public class PlayerClassEvents implements Listener {
                     g.getPlayerClassBase(p).PlayerInteract(e.getAction());
                 }
             }
-            // e.setCancelled(true);
         }
         
     }
@@ -73,7 +72,6 @@ public class PlayerClassEvents implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
-        
         int id = gm.getPlayerGameId(p);
         if (id != -1) {
             Game g = gm.getGame(id);

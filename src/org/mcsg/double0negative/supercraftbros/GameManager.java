@@ -82,13 +82,7 @@ public class GameManager {
         int a = 1;
         while (loaded < no) {
             if (c.isSet("system.arenas." + a + ".x1")) {
-                // c.set("system.arenas."+a+".enabled",c.getBoolean("system.arena."+a+".enabled",
-                // true));
                 if (c.getBoolean("system.arenas." + a + ".enabled")) {
-                    // System.out.println(c.getString("system.arenas."+a+".enabled"));
-                    // c.set("system.arenas."+a+".vip",c.getBoolean("system.arenas."+a+".vip",
-                    // false));
-                    System.out.println("Loading Arena: " + a);
                     loaded++;
                     games.add(new Game(a));
                 }
@@ -155,7 +149,6 @@ public class GameManager {
         return null;
     }
     
-    // TODO: Actually make this countdown correctly
     public void startGame(int a) {
         getGame(a).countdown(10);
     }
@@ -173,24 +166,12 @@ public class GameManager {
         Game g = getGame(getPlayerGameId(p));
         return g.getPlayerClassBase(p);
     }
-    
-    /*
-     * public void autoAddPlayer(Player pl) { ArrayList < Game > qg = new
-     * ArrayList < Game > (5); for (Game g: games) { if (g.getMode() ==
-     * Game.GameMode.WAITING) qg.add(g); } //TODO: fancy auto balance algorithm
-     * if (qg.size() == 0) { pl.sendMessage(ChatColor.RED + "No games to join");
-     * msgmgr.sendMessage(PrefixType.WARNING, "No games to join!", pl); return;
-     * } qg.get(0).addPlayer(pl); }
-     */
-    
     public WorldEditPlugin getWorldEdit() {
         return p.getWorldEdit();
     }
     
     public void createArenaFromSelection(Player pl) {
         FileConfiguration c = SettingsManager.getInstance().getSystemConfig();
-        // SettingsManager s = SettingsManager.getInstance();
-        
         WorldEditPlugin we = p.getWorldEdit();
         Selection sel = we.getSelection(pl);
         if (sel == null) {
