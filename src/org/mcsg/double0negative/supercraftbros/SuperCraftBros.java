@@ -41,7 +41,6 @@ public class SuperCraftBros extends JavaPlugin {
         this.getCommand("scb").setExecutor(new CommandHandler(this));
         
         new BukkitRunnable() {
-            @SuppressWarnings("deprecation")
             public void run() {
                 GameManager.getInstance().updateAllSigns();
             }

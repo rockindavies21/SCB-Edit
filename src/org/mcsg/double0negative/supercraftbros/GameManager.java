@@ -245,7 +245,6 @@ public class GameManager {
         return getGame(getPlayerGameId(player));
     }
     
-    @Deprecated
     public void updateAllSigns() {
         if (getGames().size() == 0) return;
         for (World w : Bukkit.getWorlds()) {
