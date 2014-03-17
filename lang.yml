@@ -1,0 +1,4 @@
+# Use & for color codes.
+# %p is where the player name will get inserted.
+
+player-join: "&6%p Joined the game!"

@@ -1,5 +1,6 @@
 package org.mcsg.double0negative.supercraftbros;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -16,6 +17,7 @@ import org.bukkit.World;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
@@ -32,6 +34,8 @@ public class Game {
         INGAME, LOBBY, DISABLED, WAITING
     }
     
+    public static YamlConfiguration LANG;
+    public static File LANG_FILE;
     private int gameID;
     private int spawnCount;
     private Arena arena;
@@ -121,8 +125,8 @@ public class Game {
             p.setGameMode(GameMode.SURVIVAL);
             p.setHealth(20D);
             p.setFoodLevel(20);
-            p.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + "Joined arena " + gameID + ". Select a class! \nHave fun!");
-            msgAll(ChatColor.GREEN + p.getName() + " joined the game!" + ChatColor.AQUA + " [+]");
+            p.sendMessage(Lang.TITLE.toString() + Lang.PLAYER_JOIN.toString().replace("%p", p.getName()));
+            msgAll(Lang.TITLE.toString() + Lang.PLAYER_MSG_JOIN.toString().replace("%p", p.getName()));
             p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 1);
             if (!started) {
@@ -379,7 +383,21 @@ public class Game {
     public State getState() {
         return state;
     }
-    
+    /**
+    * Gets the lang.yml config.
+    * @return The lang.yml config.
+    */
+    public YamlConfiguration getLang() {
+        return LANG;
+    }
+     
+    /**
+    * Get the lang.yml file.
+    * @return The lang.yml file.
+    */
+    public File getLangFile() {
+        return LANG_FILE;
+    }
     public PlayerClassBase getPlayerClassBase(Player p) {
         return pClasses.get(p);
     }
