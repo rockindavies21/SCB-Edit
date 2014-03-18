@@ -137,20 +137,20 @@ public class Game {
             updateLoadedSigns(p.getWorld(), Bukkit.getWorlds().size() >= 5);
         }
         else if (state == State.INGAME) {
-            p.sendMessage(ChatColor.RED + "Game already started!");
+            p.sendMessage(Lang.TITLE.toString() + Lang.GAME_STARTED);
         }
         else if (getPlayers().size() >= 10) {
-            p.sendMessage(ChatColor.RED + "Game Full!");
+            p.sendMessage(Lang.TITLE.toString() + Lang.GAME_FULL);
         }
         else {
-            p.sendMessage(ChatColor.RED + "Cannot join game!");
+            p.sendMessage(Lang.TITLE.toString() + Lang.GAME_CANNOT);
         }
         updateLoadedSigns(p.getWorld(), false);
     }
     
     public void startGame() {
         if (getPlayers().size() < GameManager.getInstance().minPlayers) {
-            msgAll("Not enough players");
+            msgAll(Lang.TITLE.toString() + Lang.NOT_ENOUGH);
             return;
         }
         inactive.clear();
@@ -163,7 +163,7 @@ public class Game {
             }
             else {
                 removePlayer(p);
-                p.sendMessage(ChatColor.RED + "You didn't pick a class!");
+                p.sendMessage(Lang.TITLE.toString() + Lang.NO_CLASS);
             }
             
         }
@@ -182,10 +182,10 @@ public class Game {
                 public void run() {
                     if (count > 0) {
                         if (count % 10 == 0) {
-                            msgAll(ChatColor.BLUE + "Game starting in " + count);
+                            msgAll(Lang.TITLE.toString() + Lang.COUNTDOWN.toString().replace("%c", String.valueOf(count)));
                         }
                         if (count < 6) {
-                            msgAll(ChatColor.BLUE + "Game starting in " + count);
+                            msgAll(Lang.TITLE.toString() + Lang.COUNTDOWN.toString().replace("%c", String.valueOf(count)));
                         }
                         count--;
                     }
@@ -205,7 +205,7 @@ public class Game {
         Permissions perms = new Permissions(player);
         if (perms.canUseClass(playerClass.getName())) {
             clearPotions(player);
-            player.sendMessage(ChatColor.GREEN + "You choose " + playerClass.getName() + "!");
+            player.sendMessage(Lang.TITLE.toString() + Lang.CHOOSE_CLASS);
             pClasses.put(player, playerClass);
             if (!started && pClasses.keySet().size() >= 4 && getPlayers().size() >= 4) {
                 countdown(60);
@@ -214,7 +214,7 @@ public class Game {
             }
         }
         else {
-            player.sendMessage(ChatColor.RED + "You do not have permission for this class!");
+            player.sendMessage(Lang.TITLE.toString() + Lang.NO_PERMS);
         }
         updateLoadedSigns(player.getWorld(), false);
     }
@@ -229,14 +229,14 @@ public class Game {
         }
         else {
             getPlayers().put(p, lives);
-            msgAll(p.getName() + " has " + lives + " lives left");
+            msgAll(Lang.TITLE.toString() + Lang.LIVES_LEFT.toString().replace("%p", p.getName()));
             b.setup(false);
-        }
+        }   
     }
     
     public void playerEliminate(Player p) {
         started = false;
-        msgAll(ChatColor.DARK_RED + p.getName() + " has been eliminated!");
+        msgAll(Lang.TITLE.toString() + Lang.PLAYER_ELIMINATED.toString().replace("%p", p.getName()));
         p.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
         getPlayers().remove(p);
         inactive.add(p);
@@ -247,7 +247,7 @@ public class Game {
             for (Player pl2 : getPlayers().keySet()) {
                 pl = pl2;
             }
-            Bukkit.broadcastMessage(ChatColor.BLUE + pl.getName() + " won Super Craft Bros on arena " + gameID);
+            Bukkit.broadcastMessage(Lang.TITLE.toString() + Lang.BROADCAST_WIN.toString().replace("%arena", String.valueOf(gameID)));
             gameEnd();
         }
         p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
