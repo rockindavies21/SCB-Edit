@@ -121,11 +121,13 @@ public class Game {
     
     public void addPlayer(Player p) {
         if (state == State.LOBBY && getPlayers().size() < GameManager.getInstance().maxPlayers) {
+            p.setGameMode(GameMode.SURVIVAL);
+            PlayerBackup backup = new PlayerBackup(p);
+            backup.save();
+            backup.wipe();
+            backups.put(p, backup);
             p.teleport(SettingsManager.getInstance().getGameLobbySpawn(gameID));
             getPlayers().put(p, GameManager.getInstance().lifeCount);
-            p.setGameMode(GameMode.SURVIVAL);
-            p.setHealth(20D);
-            p.setFoodLevel(20);
             p.sendMessage(Lang.TITLE.toString() + Lang.PLAYER_JOIN.toString().replace("%p", p.getName()));
             msgAll(Lang.TITLE.toString() + Lang.PLAYER_MSG_JOIN.toString().replace("%p", p.getName()));
             p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
@@ -231,7 +233,7 @@ public class Game {
             getPlayers().put(p, lives);
             msgAll(Lang.TITLE.toString() + Lang.LIVES_LEFT.toString().replace("%p", p.getName()));
             b.setup(false);
-        }   
+        }
     }
     
     public void playerEliminate(Player p) {
@@ -243,11 +245,8 @@ public class Game {
         RestorePlayer(p);
         // TODO fix this: b.setAsDead(p);
         if (getPlayers().keySet().size() <= 1 && state == State.INGAME) {
-            Player pl = null;
-            for (Player pl2 : getPlayers().keySet()) {
-                pl = pl2;
-            }
-            Bukkit.broadcastMessage(Lang.TITLE.toString() + Lang.BROADCAST_WIN.toString().replace("%arena", String.valueOf(gameID)));
+            Player pl = getPlayers().keySet().toArray(new Player[0])[0];
+            Bukkit.broadcastMessage(Lang.TITLE.toString() + Lang.BROADCAST_WIN.toString().replace("%arena", String.valueOf(gameID)).replace("%p", pl.getName()));
             gameEnd();
         }
         p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
