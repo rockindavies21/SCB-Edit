@@ -1,8 +1,8 @@
 package org.mcsg.double0negative.supercraftbros.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.mcsg.double0negative.supercraftbros.GameManager;
+import org.mcsg.double0negative.supercraftbros.Lang;
 
 public class LeaveCommand implements SubCommand {
     
@@ -12,7 +12,7 @@ public class LeaveCommand implements SubCommand {
         if (game != -1) {
             GameManager.getInstance().getGame(game).removePlayer(player);
             player.setDisplayName(player.getName());
-            player.sendMessage(ChatColor.AQUA + "You left! :(");
+            player.sendMessage(Lang.TITLE.toString() + Lang.SELF_LEAVE);
         }
         return true;
     }
