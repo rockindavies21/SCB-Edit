@@ -2,8 +2,11 @@ package org.mcsg.double0negative.supercraftbros.classes;
 
 import java.util.Random;
 
+import net.minecraft.server.v1_7_R1.PacketPlayOutWorldEvent;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -29,7 +32,9 @@ public class WitchClass extends PlayerClassBase {
         super(p);
     }
     
+    @Override
     @SuppressWarnings("deprecation")
+    
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 4));
         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 80000, 4));
@@ -62,6 +67,7 @@ public class WitchClass extends PlayerClassBase {
         player.updateInventory();
     }
     
+    @Override
     public void PlayerAttack(Player victim) {
         Random r = new Random();
         int i = r.nextInt(20);
@@ -76,6 +82,7 @@ public class WitchClass extends PlayerClassBase {
         }
     }
     
+    @Override
     public void PlayerInteract(Action a) {
         if (sugar < 2) {
             if (player.getItemInHand().getType() == Material.SUGAR && (a == Action.LEFT_CLICK_AIR || a == Action.LEFT_CLICK_BLOCK)) {
@@ -89,12 +96,14 @@ public class WitchClass extends PlayerClassBase {
             }
         }
         Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable() {
+            @Override
             public void run() {
                 sugar--;
             }
         }, 400);
     }
     
+    @Override
     public void PlayerMove() {
         super.PlayerMove();
         if (player.isSneaking()) {
@@ -102,6 +111,7 @@ public class WitchClass extends PlayerClassBase {
         }
     }
     
+    @Override
     public void Smash() {
         int id = GameManager.getInstance().getPlayerGameId(player);
         if (id != -1) {
@@ -111,8 +121,12 @@ public class WitchClass extends PlayerClassBase {
                 pl.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 1000, 1000000));
                 
                 Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable() {
+                    @Override
                     public void run() {
+                        Location l = pl.getLocation();
                         pl.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 1000, 1));
+                        SendPacketToAll(new PacketPlayOutWorldEvent(2002, l.getBlockX(), l.getBlockY() + 1, l.getBlockZ(), 244, false));
+                        
                     }
                 }, 20);
             }
@@ -120,35 +134,51 @@ public class WitchClass extends PlayerClassBase {
         
     }
     
+    @Override
     public String getName() {
         return "Witch";
     }
     
+    @Override
     public WitchClass newInstance(Player p) {
         return new WitchClass(p);
     }
     
+    
+    @Override
     public ClassType getType() {
         return ClassType.WITCH;
     }
+    
     
     public ChatColor getPrefix() {
         return ChatColor.BLUE;
     }
     
+    
+    @Override
     public void PlayerDamaged() {
+        
         
     }
     
+    
+    @Override
     public void PlayerDeath() {
         
     }
     
+    
+    @Override
     public void PlayerShootArrow(Entity projectile) {
+        
         
     }
     
+    
+    @Override
     public void PlayerPlaceBlock(Block block) {
+        
         
     }
     

@@ -19,7 +19,6 @@ import org.bukkit.block.Sign;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffectType;
 import org.mcsg.double0negative.supercraftbros.classes.PlayerClassBase;
@@ -27,6 +26,7 @@ import org.mcsg.double0negative.supercraftbros.classes.PlayerClassBase;
 import com.gmail.Jacob6816.scb.utils.Gameboard;
 import com.gmail.Jacob6816.scb.utils.Lobbyboard;
 import com.gmail.Jacob6816.scb.utils.Permissions;
+import com.gmail.Jacob6816.scb.utils.PlayerBackup;
 
 public class Game {
     
@@ -44,6 +44,7 @@ public class Game {
     private Lobbyboard l;
     private HashMap<Player, Integer> players = new HashMap<Player, Integer>();
     private HashMap<Player, PlayerClassBase> pClasses = new HashMap<Player, PlayerClassBase>();
+    private HashMap<Player, PlayerBackup> backups = new HashMap<Player, PlayerBackup>();
     private ArrayList<Player> inactive = new ArrayList<Player>();
     
     public Game(int a) {
@@ -233,26 +234,14 @@ public class Game {
         }
     }
     
-    @SuppressWarnings("deprecation")
     public void playerEliminate(Player p) {
         started = false;
         msgAll(ChatColor.DARK_RED + p.getName() + " has been eliminated!");
         p.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
         getPlayers().remove(p);
         inactive.add(p);
-        p.getInventory().clear();
-        p.getInventory().setArmorContents(new ItemStack[4]);
-        p.updateInventory();
-        p.setAllowFlight(false);
-        p.setFlying(false);
-        clearPotions(p);
-        p.teleport(SettingsManager.getInstance().getLobbySpawn());
-        p.setDisplayName(p.getName());
-        if (started) {
-            b.setup(true);
-            b.setAsDead(p);
-            updateLoadedSigns(p.getWorld(), false);
-        }
+        RestorePlayer(p);
+        // TODO fix this: b.setAsDead(p);
         if (getPlayers().keySet().size() <= 1 && state == State.INGAME) {
             Player pl = null;
             for (Player pl2 : getPlayers().keySet()) {
@@ -261,7 +250,6 @@ public class Game {
             Bukkit.broadcastMessage(ChatColor.BLUE + pl.getName() + " won Super Craft Bros on arena " + gameID);
             gameEnd();
         }
-        p.setDisplayName(p.getName());
         p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
         updateLoadedSigns(p.getWorld(), false);
     }
@@ -272,19 +260,9 @@ public class Game {
         }
     }
     
-    @SuppressWarnings("deprecation")
     public void gameEnd() {
         for (Player p : getPlayers().keySet()) {
-            p.getInventory().clear();
-            p.getInventory().setArmorContents(new ItemStack[4]);
-            p.updateInventory();
-            p.teleport(SettingsManager.getInstance().getLobbySpawn());
-            p.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
-            clearPotions(p);
-            p.setFlying(false);
-            p.setAllowFlight(false);
-            p.setDisplayName(p.getName());
-            p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
+            RestorePlayer(p);
         }
         getPlayers().clear();
         pClasses.clear();
@@ -344,15 +322,9 @@ public class Game {
         return getPlayers().keySet().contains(p);
     }
     
-    @SuppressWarnings("deprecation")
     public void removePlayer(Player p) {
         getPlayers().remove(p);
-        p.getInventory().clear();
-        p.updateInventory();
-        clearPotions(p);
-        playerEliminate(p);
-        inactive.remove(p);
-        p.teleport(SettingsManager.getInstance().getLobbySpawn());
+        RestorePlayer(p);
         msgAll(ChatColor.RED + p.getName() + " left the game!");
         updateLoadedSigns(p.getWorld(), true);
     }
@@ -383,21 +355,25 @@ public class Game {
     public State getState() {
         return state;
     }
+    
     /**
-    * Gets the lang.yml config.
-    * @return The lang.yml config.
-    */
+     * Gets the lang.yml config.
+     * 
+     * @return The lang.yml config.
+     */
     public YamlConfiguration getLang() {
         return LANG;
     }
-     
+    
     /**
-    * Get the lang.yml file.
-    * @return The lang.yml file.
-    */
+     * Get the lang.yml file.
+     * 
+     * @return The lang.yml file.
+     */
     public File getLangFile() {
         return LANG_FILE;
     }
+    
     public PlayerClassBase getPlayerClassBase(Player p) {
         return pClasses.get(p);
     }
@@ -420,5 +396,12 @@ public class Game {
     
     public Gameboard getBoard() {
         return b;
+    }
+    
+    public void RestorePlayer(Player player) {
+        if (backups.containsKey(player)) {
+            backups.get(player).restore();
+            backups.remove(player);
+        }
     }
 }

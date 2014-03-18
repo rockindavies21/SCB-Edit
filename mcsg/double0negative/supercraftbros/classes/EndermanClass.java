@@ -1,6 +1,9 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
+import net.minecraft.server.v1_7_R1.PacketPlayOutWorldEvent;
+
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -21,6 +24,7 @@ public class EndermanClass extends PlayerClassBase {
         super(p);
     }
     
+    @Override
     @SuppressWarnings("deprecation")
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 2));
@@ -51,57 +55,71 @@ public class EndermanClass extends PlayerClassBase {
         
     }
     
+    @Override
     public EndermanClass newInstance(Player p) {
         return new EndermanClass(p);
     }
     
+    @Override
     public String getName() {
         return "Enderman";
     }
     
     public boolean sne = false;
     
+    @Override
     public void PlayerMove() {
         super.PlayerMove();
         if (!fsmash) {
             if (smash) {
                 if (player.isSneaking()) {
                     sne = true;
+                    Location l = player.getLocation();
                     player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 1000, 1));
+                    SendPacketToAll(new PacketPlayOutWorldEvent(2003, l.getBlockX(), l.getBlockY() + 1, l.getBlockZ(), 0, false));
+                    
                 }
             }
             
         }
     }
     
+    @Override
     public void PlayerDamaged() {
         
     }
     
+    @Override
     public void PlayerInteract(Action action) {
         
     }
     
+    @Override
     public void PlayerAttack(Player victim) {
         
     }
     
+    @Override
     public void PlayerDeath() {
         
     }
     
+    @Override
     public void PlayerShootArrow(Entity projectile) {
         
     }
     
+    @Override
     public void Smash() {
         
     }
     
+    @Override
     public void PlayerPlaceBlock(Block block) {
         
     }
     
+    @Override
     public ClassType getType() {
         return ClassType.ENDERMAN;
     }

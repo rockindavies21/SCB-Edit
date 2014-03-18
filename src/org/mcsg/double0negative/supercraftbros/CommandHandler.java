@@ -79,7 +79,7 @@ public class CommandHandler implements CommandExecutor
 			Vector<String> l  = new Vector<String>();
 			l.addAll(Arrays.asList(args));
 			l.remove(0);
-			args = (String[]) l.toArray(new String[0]);
+			args = l.toArray(new String[0]);
 			if(!commands.containsKey(sub)){
 				player.sendMessage(ChatColor.RED+"Command dosent exist.");
 				player.sendMessage(ChatColor.GOLD +"Type /scb help for help" );
