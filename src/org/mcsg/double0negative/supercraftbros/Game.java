@@ -207,7 +207,7 @@ public class Game {
         Permissions perms = new Permissions(player);
         if (perms.canUseClass(playerClass.getName())) {
             clearPotions(player);
-            player.sendMessage(Lang.TITLE.toString() + Lang.CHOOSE_CLASS);
+            player.sendMessage(Lang.TITLE.toString() + Lang.CHOOSE_CLASS.toString().replace("%class", playerClass.getName()));
             pClasses.put(player, playerClass);
             if (!started && pClasses.keySet().size() >= 4 && getPlayers().size() >= 4) {
                 countdown(60);
@@ -231,7 +231,7 @@ public class Game {
         }
         else {
             getPlayers().put(p, lives);
-            msgAll(Lang.TITLE.toString() + Lang.LIVES_LEFT.toString().replace("%p", p.getName()));
+            msgAll(Lang.TITLE.toString() + Lang.LIVES_LEFT.toString().replace("%p", p.getName()).replace("%lives", String.valueOf(lives)));
             b.setup(false);
         }
     }

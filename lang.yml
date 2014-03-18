@@ -1,4 +1,24 @@
 # Use & for color codes.
 # %p is where the player name will get inserted.
+# %c is the countdown.
+# %arena is the arena.
+# %lives are the lives.
+# %class is the players class.
 
-player-join: "&6%p Joined the game!"
+player-join: '&2&lYOU &b Joined the game!'
+title-name: '&4[&1&lSCB&4]'
+player-msg-all-join: '%p Joined the game choose a class! &b[&2+&b]'
+self-leave: You Left!
+player-leave: '&b&l%p Left!'
+player-eliminated: '&4%p Lost the game!'
+no-class: '&cYou didnt pick a class.'
+no-permissions: '&4&lYou don''t have permission for that!'
+cannot-join-game-full: '&4GAME IS FULL!'
+cannot-join-game-started: '&c&lGAME ALREADY STARTED!'
+cannot-join-game: '&c&lCANNOT JOIN GAME'
+kicked-from-game-no-class: '&cYou have been kicked for not choosing a class! D:'
+count-down: '&bGame starting in %c'
+class-chosen: '&6You chose %class'
+lives-left: You have %lives Left!
+player-win-broadcast: '%p Has won on %arena'
+not-enough-players: '&cNOT ENOUGH PLAYERS'

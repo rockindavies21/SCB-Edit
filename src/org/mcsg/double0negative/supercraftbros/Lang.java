@@ -8,18 +8,18 @@ import org.bukkit.configuration.file.YamlConfiguration;
 * @author gomeow
 */
 public enum Lang {
-    TITLE("title-name", "&4[&fSCB&4]:"),
+    TITLE("title-name", "&4[&bSCB&4]"),
     PLAYER_JOIN("player-join", "&2&lYOU &bJoined the game!"),
     PLAYER_MSG_JOIN("player-msg-all-join", "%p Joined the game choose a class! &b[&2+&b]"),
     SELF_LEAVE("self-leave", "You Left!"),
     PLAYER_LEAVE("player-leave", "&b&l%p Left!"),
     PLAYER_ELIMINATED("player-eliminated", "&4%p Lost the game!"),
     DIDNT_PICK_A_CLASS("no-class", "&cYou didnt pick a class."),
-    NO_PERMS("no-permissions", "&cYou don''t have permission for that!"),
+    NO_PERMS("no-permissions", "&4&lYou don't have permission for that!"),
     GAME_FULL("cannot-join-game-full", "&4GAME IS FULL!"),
-    GAME_STARTED("cannot-join-game-started", "&cYou don''t have permission for that!"),
-    GAME_CANNOT("cannot-join-game", "&cYou don''t have permission for that!"),
-    NO_CLASS("kicked-from-game-no-class", "&cYou don''t have permission for that!"),
+    GAME_STARTED("cannot-join-game-started", "&c&lGAME ALREADY STARTED!"),
+    GAME_CANNOT("cannot-join-game", "&c&lCANNOT JOIN GAME"),
+    NO_CLASS("kicked-from-game-no-class", "&cYou have been kicked for not choosing a class! D:"),
     COUNTDOWN("count-down", "&bGame starting in %c"),
     CHOOSE_CLASS("class-chosen", "&6You chose %class"),
     LIVES_LEFT("lives-left", "You have %lives Left!"),
@@ -53,7 +53,7 @@ public enum Lang {
     public String toString() {
         if (this == TITLE)
             return ChatColor.translateAlternateColorCodes('&', LANG.getString(this.path, def)) + " ";
-        return ChatColor.translateAlternateColorCodes('&', LANG.getString(this.path, def));
+        	return ChatColor.translateAlternateColorCodes('&', LANG.getString(this.path, def));
     }
  
     /**
