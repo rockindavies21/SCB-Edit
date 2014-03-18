@@ -16,7 +16,7 @@ public enum Lang {
     PLAYER_ELIMINATED("player-eliminated", "&4%p Lost the game!"),
     DIDNT_PICK_A_CLASS("no-class", "&cYou didnt pick a class."),
     NO_PERMS("no-permissions", "&cYou don''t have permission for that!"),
-    GAME_FULL("cannot-join-game-full", "&cYou don''t have permission for that!"),
+    GAME_FULL("cannot-join-game-full", "&4GAME IS FULL!"),
     GAME_STARTED("cannot-join-game-started", "&cYou don''t have permission for that!"),
     GAME_CANNOT("cannot-join-game", "&cYou don''t have permission for that!"),
     NO_CLASS("kicked-from-game-no-class", "&cYou don''t have permission for that!"),
