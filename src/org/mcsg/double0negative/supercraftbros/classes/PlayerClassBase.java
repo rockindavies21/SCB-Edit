@@ -1,12 +1,8 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
-import net.minecraft.server.v1_7_R1.Packet;
-import net.minecraft.server.v1_7_R1.PacketPlayOutWorldEvent;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.craftbukkit.v1_7_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -63,18 +59,12 @@ public abstract class PlayerClassBase {
         return l.getBlock().getState().getTypeId() != 0;
     }
     
-    @SuppressWarnings("deprecation")
     public void exploadPlayers() {
         int i = GameManager.getInstance().getPlayerGameId(player);
         if (i != -1) {
             Location l = player.getLocation();
             l = l.add(0, -1, 0);
-            for (int x = l.getBlockX() - 1; x <= l.getBlockX() + 1; x++) {
-                for (int z = l.getBlockZ() - 1; z <= l.getBlockZ() + 1; z++) {
-                    SendPacketToAll(new PacketPlayOutWorldEvent(2001, x, l.getBlockY() + 1, z, l.getBlock().getState().getTypeId(), false));
-                }
-            }
-            for (Entity pl : player.getWorld().getEntities()) {
+            for (Entity pl : player.getNearbyEntities(5, 5, 5)) {
                 if (pl != player) {
                     Location l2 = pl.getLocation();
                     double d = pl.getLocation().distance(player.getLocation());
@@ -99,12 +89,6 @@ public abstract class PlayerClassBase {
                     e.remove();
                 }
             }, 5);
-        }
-    }
-    
-    public void SendPacketToAll(Packet p) {
-        for (Player pl : GameManager.getInstance().getGame(GameManager.getInstance().getPlayerGameId(player)).getActivePlayers()) {
-            ((CraftPlayer) pl).getHandle().playerConnection.sendPacket(p);
         }
     }
     

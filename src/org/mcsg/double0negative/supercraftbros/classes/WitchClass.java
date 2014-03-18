@@ -2,11 +2,8 @@ package org.mcsg.double0negative.supercraftbros.classes;
 
 import java.util.Random;
 
-import net.minecraft.server.v1_7_R1.PacketPlayOutWorldEvent;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -33,7 +30,6 @@ public class WitchClass extends PlayerClassBase {
     }
     
     @SuppressWarnings("deprecation")
-    
     public void PlayerSpawn() {
         player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, 80000, 4));
         player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 80000, 4));
@@ -116,10 +112,7 @@ public class WitchClass extends PlayerClassBase {
                 
                 Bukkit.getScheduler().scheduleSyncDelayedTask(GameManager.getInstance().getPlugin(), new Runnable() {
                     public void run() {
-                        Location l = pl.getLocation();
                         pl.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 1000, 1));
-                        SendPacketToAll(new PacketPlayOutWorldEvent(2002, l.getBlockX(), l.getBlockY() + 1, l.getBlockZ(), 244, false));
-                        
                     }
                 }, 20);
             }
@@ -135,36 +128,27 @@ public class WitchClass extends PlayerClassBase {
         return new WitchClass(p);
     }
     
-    
     public ClassType getType() {
         return ClassType.WITCH;
     }
-    
     
     public ChatColor getPrefix() {
         return ChatColor.BLUE;
     }
     
-    
     public void PlayerDamaged() {
         
-        
     }
-    
     
     public void PlayerDeath() {
         
     }
     
-    
     public void PlayerShootArrow(Entity projectile) {
-        
         
     }
     
-    
     public void PlayerPlaceBlock(Block block) {
-        
         
     }
     

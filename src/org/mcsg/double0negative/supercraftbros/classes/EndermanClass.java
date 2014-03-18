@@ -1,9 +1,6 @@
 package org.mcsg.double0negative.supercraftbros.classes;
 
-import net.minecraft.server.v1_7_R1.PacketPlayOutWorldEvent;
-
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
@@ -70,10 +67,7 @@ public class EndermanClass extends PlayerClassBase {
             if (smash) {
                 if (player.isSneaking()) {
                     sne = true;
-                    Location l = player.getLocation();
                     player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 1000, 1));
-                    SendPacketToAll(new PacketPlayOutWorldEvent(2003, l.getBlockX(), l.getBlockY() + 1, l.getBlockZ(), 0, false));
-                    
                 }
             }
             
