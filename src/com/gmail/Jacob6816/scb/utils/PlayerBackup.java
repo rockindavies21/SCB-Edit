@@ -39,22 +39,26 @@ public class PlayerBackup {
         totalExp = p.getTotalExperience();
     }
     
+    @SuppressWarnings("deprecation")
     public void wipe() {
         if (p.getActivePotionEffects().size() >= 1) for (PotionEffect e : p.getActivePotionEffects()) {
             p.removePotionEffect(e.getType());
         }
         p.setAllowFlight(false);
+        p.setFlying(false);
         p.setMaxHealth(20D);
         p.setHealth(20D);
         p.setFallDistance(0F);
         p.setFireTicks(0);
         p.setFoodLevel(20);
         p.setSaturation(Float.MAX_VALUE);
-        p.getInventory().setContents(new ItemStack[] {});
-        p.getInventory().setArmorContents(new ItemStack[] {});
+        p.getInventory().setContents(new ItemStack[0]);
+        p.getInventory().setArmorContents(new ItemStack[4]);
         p.setTotalExperience(0);
+        p.updateInventory();
     }
     
+    @SuppressWarnings("deprecation")
     public void restore() {
         p.addPotionEffects(effects);
         p.setAllowFlight(canFly);
@@ -70,5 +74,25 @@ public class PlayerBackup {
         p.setSaturation(saturation);
         p.getInventory().setHeldItemSlot(slot);
         p.setTotalExperience(totalExp);
+        p.updateInventory();
+    }
+    
+    @SuppressWarnings("deprecation")
+    public static void wipeExtPlayer(Player target) {
+        if (target.getActivePotionEffects().size() >= 1) for (PotionEffect e : target.getActivePotionEffects()) {
+            target.removePotionEffect(e.getType());
+        }
+        target.setAllowFlight(false);
+        target.setFlying(false);
+        target.setMaxHealth(20D);
+        target.setHealth(20D);
+        target.setFallDistance(0F);
+        target.setFireTicks(0);
+        target.setFoodLevel(20);
+        target.setSaturation(Float.MAX_VALUE);
+        target.getInventory().setContents(new ItemStack[0]);
+        target.getInventory().setArmorContents(new ItemStack[4]);
+        target.setTotalExperience(0);
+        target.updateInventory();
     }
 }

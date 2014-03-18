@@ -132,11 +132,12 @@ public class Game {
             msgAll(Lang.TITLE.toString() + Lang.PLAYER_MSG_JOIN.toString().replace("%p", p.getName()));
             p.getWorld().playEffect(p.getLocation(), Effect.ENDER_SIGNAL, null);
             p.playSound(p.getLocation(), Sound.LEVEL_UP, 10, 1);
+            PlayerBackup.wipeExtPlayer(p);
             if (!started) {
                 l.setup(true);
                 l.updateScores();
             }
-            updateLoadedSigns(p.getWorld(), Bukkit.getWorlds().size() >= 5);
+            updateLoadedSigns(p.getWorld(), true);
         }
         else if (state == State.INGAME) {
             p.sendMessage(Lang.TITLE.toString() + Lang.GAME_STARTED);
@@ -206,7 +207,7 @@ public class Game {
     public void setPlayerClass(Player player, PlayerClassBase playerClass) {
         Permissions perms = new Permissions(player);
         if (perms.canUseClass(playerClass.getName())) {
-            clearPotions(player);
+            PlayerBackup.wipeExtPlayer(player);
             player.sendMessage(Lang.TITLE.toString() + Lang.CHOOSE_CLASS.toString().replace("%class", playerClass.getName()));
             pClasses.put(player, playerClass);
             if (!started && pClasses.keySet().size() >= 4 && getPlayers().size() >= 4) {
@@ -266,6 +267,7 @@ public class Game {
         getPlayers().clear();
         pClasses.clear();
         inactive.clear();
+        backups.clear();
         state = State.LOBBY;
         updateLoadedSigns(Bukkit.getWorlds().get(0), true);
     }
